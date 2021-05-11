@@ -14,6 +14,9 @@ public:
     void printGraph();
     void setNumOfVertexes(int);
     void setNumOfEdges(int);
+    int getNumOfVertexes();
+    int getNumOfEdges();
+    int findElement(int, int);
 };
 
 #endif
