@@ -20,7 +20,7 @@ int minimumDist(int dist[], bool visited[])
 	return index;
 }
 
-void Dijkstra(int graph[6][6],int src) // adjacency matrix used is 6x6
+void dijkstra(int graph[6][6],int src) // adjacency matrix used is 6x6
 {
 	int dist[6]; // integer array to calculate minimum distance for each node.                            
 	bool visited[6];// boolean array to mark visted/unvisted for each node.
@@ -55,6 +55,15 @@ void Dijkstra(int graph[6][6],int src) // adjacency matrix used is 6x6
 	}
 }
 
+// void printGraph(**graph, numOfVertexes, numOfEdges){
+//     for(int i = 0; i<numOfVertexes; i++){
+//         for(int j = 0; j<numOfEdges; j++){
+//             cout<<setw(5)<<graph[i][j];
+//         }
+//         cout<<endl;
+//     }
+// }
+
 int main()
 {
     int numOfEdges, numOfVertexes;
@@ -78,7 +87,9 @@ int main()
         graph[vertexEnd][i] = -1;
     }
 
-    //printing graph
+    // printGraph(graph, numOfVertexes, numOfEdges);
+
+    // printing graph
     for(int i = 0; i<numOfVertexes; i++){
         for(int j = 0; j<numOfEdges; j++){
             cout<<setw(5)<<graph[i][j];
@@ -86,10 +97,12 @@ int main()
         cout<<endl;
     }
 
+    // dijkstra(graph,0);
+
     //deleting the array
     for(int i = 0; i<numOfVertexes; i++) delete [] graph[i];
     delete [] graph;
 
-	// Dijkstra(graph,0);
+	
 	return 0;	                        
 }
