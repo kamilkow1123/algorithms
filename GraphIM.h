@@ -1,15 +1,15 @@
-#ifndef _DIRECTED_GRAPH_H_
-#define _DIRECTED_GRAPH_H_
+#ifndef _GRAPH_INCIDENCE_MATRIX_H_
+#define _GRAPH_INCIDENCE_MATRIX_H_
 
-class DirectedGraph{
+class GraphIM{ // graph in incidence matrix
 private:
     int numOfVertexes;
     int numOfEdges;
     int **graph;
 
 public:
-    DirectedGraph();
-    ~DirectedGraph();
+    GraphIM();
+    ~GraphIM();
     void fillGraphFromFile();
     void printGraph();
     void setNumOfVertexes(int);

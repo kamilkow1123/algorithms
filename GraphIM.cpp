@@ -2,21 +2,21 @@
 #include<iomanip>
 #include<fstream>
 #include<climits>
-#include "directedGraph.h"
+#include "GraphIM.h"
 using namespace std;
 
-DirectedGraph::DirectedGraph(){
+GraphIM::GraphIM(){
     this->numOfVertexes = 0;
     this->numOfEdges = 0;
     this->graph = nullptr;
 }
 
-DirectedGraph::~DirectedGraph(){
+GraphIM::~GraphIM(){
     for(int i = 0; i<numOfVertexes; i++) delete [] graph[i];
     delete [] graph;
 }
 
-void DirectedGraph::printGraph(){
+void GraphIM::printGraph(){
     if(numOfVertexes == 0){
         cout<<"Graph is empty!"<<endl;
         return;
@@ -31,27 +31,27 @@ void DirectedGraph::printGraph(){
     cout<<endl;
 }
 
-void DirectedGraph::setNumOfEdges(int num){
+void GraphIM::setNumOfEdges(int num){
     this->numOfEdges = num;
 }
 
-void DirectedGraph::setNumOfVertexes(int num){
+void GraphIM::setNumOfVertexes(int num){
     this->numOfVertexes = num;
 }
 
-int DirectedGraph::getNumOfEdges(){
+int GraphIM::getNumOfEdges(){
     return numOfEdges;
 }
 
-int DirectedGraph::getNumOfVertexes(){
+int GraphIM::getNumOfVertexes(){
     return numOfVertexes;
 }
 
-int DirectedGraph::findElement(int n, int m){
+int GraphIM::findElement(int n, int m){
     return graph[n][m];
 }
 
-int DirectedGraph::getStartingVertexOfEdge(int j){
+int GraphIM::getStartingVertexOfEdge(int j){
     if(j > numOfEdges - 1) return -1;
 
     for(int i = 0; i<numOfVertexes; i++){
@@ -61,7 +61,7 @@ int DirectedGraph::getStartingVertexOfEdge(int j){
     return -1;
 }
 
-int DirectedGraph::getEndingVertexOfEdge(int j){
+int GraphIM::getEndingVertexOfEdge(int j){
     if(j > numOfEdges - 1) return -1;
     
     for(int i = 0; i<numOfVertexes; i++){
@@ -71,7 +71,7 @@ int DirectedGraph::getEndingVertexOfEdge(int j){
         return -1;
 }
 
-void DirectedGraph::fillGraphFromFile(){
+void GraphIM::fillGraphFromFile(){
     if(numOfVertexes != 0){
         cout<<"Graph is not empty"<<endl;
         return;
@@ -124,7 +124,7 @@ int minimumVertex(int *dist, bool *visited, int n)
 	return min;
 }
 
-void dijkstra(DirectedGraph *graph, int src) // incidence matrix 
+void dijkstra(GraphIM *graph, int src) // incidence matrix 
 {
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
     int edges = graph->getNumOfEdges(); // number of edges
@@ -171,7 +171,7 @@ void dijkstra(DirectedGraph *graph, int src) // incidence matrix
     delete [] previous;
 }
 
-void bellman_ford(DirectedGraph *graph, int src){
+void bellman_ford(GraphIM *graph, int src){
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
     int edges = graph->getNumOfEdges(); // number of edges
 	int *distance = new int[vertexes]; // integer array to calculate minimum distance for each vertex  
@@ -221,7 +221,7 @@ void bellman_ford(DirectedGraph *graph, int src){
 }
 
 int main(){
-    DirectedGraph *graph = new DirectedGraph();
+    GraphIM *graph = new GraphIM();
 
     graph->fillGraphFromFile();
     graph->printGraph();
