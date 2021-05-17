@@ -23,11 +23,12 @@ void DirectedGraph::printGraph(){
     }
 
     for(int i = 0; i<numOfVertexes; i++){
-        for(int j = 0; j<numOfEdges; j++){
+        for(int j = 0; j<numOfEdges; j++){ // change to numOfVertexes for adjacency matrix
             cout<<setw(5)<<graph[i][j];
         }
         cout<<endl;
     }
+    cout<<endl;
 }
 
 void DirectedGraph::setNumOfEdges(int num){
@@ -48,6 +49,26 @@ int DirectedGraph::getNumOfVertexes(){
 
 int DirectedGraph::findElement(int n, int m){
     return graph[n][m];
+}
+
+int DirectedGraph::getStartingVertexOfEdge(int j){
+    if(j > numOfEdges - 1) return -1;
+
+    for(int i = 0; i<numOfVertexes; i++){
+        if(graph[i][j] > 0)
+            return i;
+    }
+    return -1;
+}
+
+int DirectedGraph::getEndingVertexOfEdge(int j){
+    if(j > numOfEdges - 1) return -1;
+    
+    for(int i = 0; i<numOfVertexes; i++){
+        if(graph[i][j] < 0)
+            return i;
+    }
+        return -1;
 }
 
 void DirectedGraph::fillGraphFromFile(){
@@ -75,8 +96,8 @@ void DirectedGraph::fillGraphFromFile(){
 
         for(int i = 0; i<numberOfEdges; i++){
             in>>vertexStart>>vertexEnd>>distanceValue;
-            graph[vertexStart][i] = distanceValue;
-            graph[vertexEnd][i] = -1;
+            graph[vertexStart][i] = distanceValue; // graph[vertexStart][vertexEnd] for adjacency matrix
+            graph[vertexEnd][i] = -1*distanceValue; // comment this for adjacency matrix
         }
 
         setNumOfEdges(numberOfEdges);
@@ -89,64 +110,126 @@ void DirectedGraph::fillGraphFromFile(){
     }
 }
 
-int minimumDist(int dist[], bool visited[], int n) 
+int minimumVertex(int *dist, bool *visited, int n) 
 {
-	int min = INT_MAX, index;
+	int min = -1;
               
-	for(int i=0;i<n;i++) 
+	for(int i = 0; i < n; i++) 
 	{
-		if(visited[i]==false && dist[i]<=min)      
-		{
-			min=dist[i];
-			index=i;
+		if(!visited[i] && (min == -1 || dist[i] < dist[min]))      
+		{ 
+		    min = i;
 		}
 	}
-	return index;
+	return min;
 }
 
 void dijkstra(DirectedGraph *graph, int src) // adjacency matrix 
 {
-    int n = graph->getNumOfVertexes();
-	int *dist = new int[n]; // integer array to calculate minimum distance for each vertex                          
-	bool *visited = new bool[n];// boolean array to mark visted/unvisted for each vertex
+    int vertexes = graph->getNumOfVertexes();
+	int *distance = new int[vertexes]; // integer array to calculate minimum distance for each vertex                          
+	bool *visited = new bool[vertexes];// boolean array to mark visted/unvisted for each vertex
 	
 	// set the vertexes with infinity distance
 	// except for the initial vertex and mark
 	// them unvisited.  
-	for(int i = 0; i<n; i++)
+	for(int i = 0; i < vertexes; i++)
 	{
-		dist[i] = INT_MAX;
-		visited[i] = false;	
+		distance[i] = INT_MAX;
+		visited[i] = false;
 	}
 	
-	dist[src] = 0;   // Source vertex distance is set to zero.             
+	distance[src] = 0;   // source vertex distance is set to zero            
 	
-	for(int i = 0; i<n; i++)                           
+	for(int i = 0; i < vertexes; i++)                           
 	{
-		int m = minimumDist(dist,visited, n); // vertex not yet included.
-		visited[m] = true;// m with minimum distance included in visited.
-		for(int i = 0; i<n; i++)                  
+		int min = minimumVertex(distance,visited, vertexes); // vertex not yet included
+		visited[min] = true;// min with minimum distance included in visited
+
+		for(int j = 0; j < vertexes; j++)                  
 		{
-			// Updating the minimum distance for the particular node.
-			if(!visited[i] && graph->findElement(m,i) && dist[m]!=INT_MAX && dist[m]+graph->findElement(m,i)<dist[i])
-				dist[i]=dist[m]+graph->findElement(m,i);
+			// updating the minimum distance for the particular vertex
+			if(graph->findElement(min, j) != 0 && !visited[j]){
+                int dist = distance[min] + graph->findElement(min, j);
+                if(dist < distance[j]){
+                    distance[j] = dist;
+                }
+            }
 		}
 	}
-	cout<<"Vertex\t\tDistance from source"<<endl;
-	for(int i = 0; i<n; i++)                      
-	{ //Printing
-		// char str=65+i; // Ascii values for pritning A,B,C..
-		cout<<i<<"\t\t\t"<<dist[i]<<endl;
+    cout<<"Results of the Dijkstra algorithm: "<<endl;
+	cout<<"Vertex\tDistance from source"<<endl;
+	for(int i = 0; i < vertexes; i++) //printing             
+	{ 
+		cout<<i<<"\t\t"<<distance[i]<<endl;
 	}
+
+    delete [] visited;
+    delete [] distance;
+}
+
+void bellman_ford(DirectedGraph *graph, int src){
+    int vertexes = graph->getNumOfVertexes();
+    int edges = graph->getNumOfEdges();
+	int *distance = new int[vertexes]; // integer array to calculate minimum distance for each vertex  
+    int *previous = new int[vertexes]; // integer array of previous vertexes
+
+    // set the vertexes with infinity distance
+    for(int i = 0; i < vertexes; i++)
+	{
+		distance[i] = INT_MAX;
+        previous[i] = 0;
+	}
+
+    distance[src] = 0;   // source vertex distance is set to zero      
+
+    for(int i = 0; i < vertexes-1; i++){
+        for(int j = 0; j < edges; j++){
+            int u = graph->getStartingVertexOfEdge(j);
+            int v = graph->getEndingVertexOfEdge(j);
+            int w = graph->findElement(u, j);
+            if(distance[u] != INT_MAX && distance[u] + w < distance[v]){
+                distance[v] = distance[u] + w;
+                previous[v] = u;
+            }
+        }
+    }
+
+    // Detect negative cycle
+    for(int j = 0; j < edges; j++){
+        int u = graph->getStartingVertexOfEdge(j);
+        int v = graph->getEndingVertexOfEdge(j);
+        int w = graph->findElement(u, j);
+        if(distance[u] != INT_MAX && distance[u] + w < distance[v]){
+            cout<<"Negative cycle detected!"<<endl;
+            return;
+        }
+    }
+
+    cout<<"Results of the Bellman-Ford algorithm: "<<endl;
+	cout<<"Vertex\tDistance from source\tPrevious vertex"<<endl;
+	for(int i = 0; i < vertexes; i++) //printing             
+	{ 
+		cout<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
+	}
+
+    delete [] distance;
+    delete [] previous;
 }
 
 int main(){
     DirectedGraph *graph = new DirectedGraph();
-    graph->printGraph();
+
     graph->fillGraphFromFile();
     graph->printGraph();
 
-    dijkstra(graph, 0);
+    // dijkstra(graph, 0);
+    bellman_ford(graph, 0);
+
+    // cout<<graph->getStartingVertexOfEdge(6)<<endl;
+    // cout<<graph->getEndingVertexOfEdge(6)<<endl;
+
+    delete graph;
 
     return 0;
 }

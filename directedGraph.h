@@ -17,6 +17,8 @@ public:
     int getNumOfVertexes();
     int getNumOfEdges();
     int findElement(int, int);
+    int getStartingVertexOfEdge(int);
+    int getEndingVertexOfEdge(int);
 };
 
 #endif
