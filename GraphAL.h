@@ -13,7 +13,7 @@ struct Node{
     }
 };
 
-class GraphAL{
+class GraphAL{ // graph in adjacency list
 private:    
     Node **array;
     int numOfVertexes;
@@ -27,6 +27,7 @@ public:
     void setNumOfEdges(int);
     int getNumOfVertexes();
     int getNumOfEdges();
+    Node *getList(int);
 };
 
 #endif
