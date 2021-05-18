@@ -165,6 +165,7 @@ void dijkstra(GraphIM *graph, int src) // incidence matrix
 	{ 
 		cout<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
 	}
+    cout<<endl;
 
     delete [] visited;
     delete [] distance;
@@ -215,6 +216,7 @@ void bellman_ford(GraphIM *graph, int src){
 	{ 
 		cout<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
 	}
+    cout<<endl;
 
     delete [] distance;
     delete [] previous;

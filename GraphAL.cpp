@@ -155,8 +155,62 @@ void dijkstra(GraphAL *graph, int src) // incidence matrix
 	{ 
 		cout<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
 	}
+    cout<<endl;
 
     delete [] visited;
+    delete [] distance;
+    delete [] previous;
+}
+
+void bellman_ford(GraphAL *graph, int src){
+    int vertexes = graph->getNumOfVertexes(); // number of vertexes
+    int edges = graph->getNumOfEdges(); // number of edges
+	int *distance = new int[vertexes]; // integer array to calculate minimum distance for each vertex  
+    int *previous = new int[vertexes]; // integer array of previous vertexes
+    bool stop;
+
+    // set the vertexes with infinity distance
+    for(int i = 0; i < vertexes; i++)
+	{
+		distance[i] = INT_MAX;
+        previous[i] = -1;
+	}
+
+    distance[src] = 0;   // source vertex distance is set to zero      
+
+    for(int i = 0; i < vertexes-1; i++){
+        stop = true;
+        for(int j = 0; j < vertexes; j++){
+            for(Node *ver = graph->getList(j); ver; ver = ver->next){
+                // updating the minimum distance for the particular vertex
+                if((distance[ver->vertex] > distance[j] + ver->edge)){
+                    distance[ver->vertex] = distance[j] + ver->edge;
+                    previous[ver->vertex] = j;
+                    stop = false;
+                }
+            }
+        }
+        if(stop) break;
+    }
+
+    // Detect negative cycle
+    for(int j = 0; j < vertexes; j++){
+        for(Node *ver = graph->getList(j); ver; ver = ver->next){
+            if((distance[ver->vertex] > distance[j] + ver->edge)){
+                cout<<"Negative cycle detected!"<<endl;
+                return;
+            }
+        }
+    }
+
+    cout<<"Results of the Bellman-Ford algorithm: "<<endl;
+	cout<<"Vertex\tDistance from source\tPrevious vertex"<<endl;
+	for(int i = 0; i < vertexes; i++) //printing             
+	{ 
+		cout<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
+	}
+    cout<<endl;
+
     delete [] distance;
     delete [] previous;
 }
@@ -168,6 +222,7 @@ int main(){
     graph->printGraph();
 
     dijkstra(graph, 0);
+    bellman_ford(graph, 0);
 
     return 0;
 }
