@@ -2,7 +2,7 @@
 #include<iomanip>
 #include<fstream>
 #include<climits>
-#include "GraphIM.h"
+#include "graphIM.h"
 using namespace std;
 
 GraphIM::GraphIM(){

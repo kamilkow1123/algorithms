@@ -1,6 +1,7 @@
 #include<iostream>
 #include "Dijkstra/dijkstra.cpp"
 #include "Bellman-Ford/bellmanFord.cpp"
+#include "Prim/prim.cpp"
 
 
 using namespace std;
@@ -10,9 +11,11 @@ int main(){
     GraphIM *graphIM = new GraphIM();
 
     graphAL->fillGraphFromFile(false); // false - undirected graph, true - directed
-    graphIM->fillGraphFromFile(true); // false - undirected graph, true - directed
+    // graphIM->fillGraphFromFile(true); // false - undirected graph, true - directed
 
-    graphIM->printGraph();
+    graphAL->printGraph();
+
+    primAL(graphAL, 0);
 
     // dijkstraAL(graphAL, 0);
     // dijkstraIM(graphIM, 0);

@@ -2,7 +2,7 @@
 #include<iomanip>
 #include<fstream>
 #include<climits>
-#include "GraphAL.h"
+#include "graphAL.h"
 using namespace std;
 
 GraphAL::GraphAL(){
@@ -44,7 +44,6 @@ void GraphAL::printGraph(){
         }
         cout<<endl;
     }
-    cout<<endl;
     cout<<"Graph weight: "<<weight<<endl;
 }
 
@@ -68,11 +67,17 @@ Node *GraphAL::getList(int ver){
     return array[ver];
 }
 
+void GraphAL::addNodes(int vertexes){
+    this->array = new Node *[vertexes];
+
+    for(int i = 0; i<vertexes; i++) this->array[i] = nullptr;
+}
+
 void GraphAL::addNode(int ver1, int ver2, int dist){
     Node *temp = new Node(ver2, dist);
     temp->next = array[ver1];
-    array[ver1] = temp;
-    weight += dist;
+    this->array[ver1] = temp;
+    this->weight += dist;
 }
 
 void GraphAL::fillGraphFromFile(bool directed){
@@ -89,12 +94,9 @@ void GraphAL::fillGraphFromFile(bool directed){
         int numberOfEdges, numberOfVertexes;
         in>>numberOfEdges>>numberOfVertexes;
 
-        array = new Node *[numberOfVertexes];
-
-        for(int i = 0; i<numberOfVertexes; i++) array[i] = nullptr;
+        this->addNodes(numberOfVertexes);
 
         int vertexStart, vertexEnd, distanceValue;
-        Node *temp;
 
         for(int i = 0; i<numberOfEdges; i++){
             in>>vertexStart>>vertexEnd>>distanceValue;
@@ -102,7 +104,7 @@ void GraphAL::fillGraphFromFile(bool directed){
             this->addNode(vertexStart, vertexEnd, distanceValue);
             if(!directed) {
                 this->addNode(vertexEnd, vertexStart, distanceValue);
-                weight -= distanceValue;
+                this->weight -= distanceValue;
             }
         }
 

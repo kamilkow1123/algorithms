@@ -1,4 +1,4 @@
-#include "Queue.h"
+#include "queue.h"
 
 Queue::Queue(int edges){
     heap = new Edge [edges]; //heap for edges

@@ -1,7 +1,7 @@
 #include<iostream>
 #include<climits>
-#include "../AdjacencyListGraph/GraphAL.h"
-#include "../IncidenceMatrixGraph/GraphIM.h"
+#include "../AdjacencyListGraph/graphAL.h"
+#include "../IncidenceMatrixGraph/graphIM.h"
 using namespace std;
 
 void bellmanFordAL(GraphAL *graph, int src){

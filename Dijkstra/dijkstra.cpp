@@ -1,7 +1,7 @@
 #include<iostream>
 #include<climits>
-#include "../AdjacencyListGraph/GraphAL.cpp"
-#include "../IncidenceMatrixGraph/GraphIM.cpp"
+#include "../AdjacencyListGraph/graphAL.cpp"
+#include "../IncidenceMatrixGraph/graphIM.cpp"
 using namespace std;
 
 int minimumVertex(int *dist, bool *visited, int n) 
@@ -18,7 +18,7 @@ int minimumVertex(int *dist, bool *visited, int n)
 	return min;
 }
 
-void dijkstraAL(GraphAL *graph, int src) // incidence matrix 
+void dijkstraAL(GraphAL *graph, int src) // adjacency list
 {
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
     int edges = graph->getNumOfEdges(); // number of edges
