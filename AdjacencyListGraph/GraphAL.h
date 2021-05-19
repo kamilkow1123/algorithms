@@ -29,8 +29,9 @@ public:
     int getNumOfVertexes();
     int getNumOfEdges();
     Node *getList(int);
-    void addNodes(int);
-    void addNode(int, int, int);
+    void addVertexes(int);
+    void addDirectedEdge(int, int, int);
+    void addUndirectedEdge(int, int, int);
 };
 
 #endif

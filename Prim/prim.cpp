@@ -9,7 +9,7 @@ void primAL(GraphAL *graph, int src){
     int edges = graph->getNumOfEdges(); // number of edges                      
 	bool *visited = new bool[vertexes]; // boolean array to mark visted/unvisted for each vertex
     GraphAL *mst = new GraphAL();
-    mst->addNodes(vertexes);
+    mst->addVertexes(vertexes);
 	
 	// set the vertexes with infinity distance and mark them unvisited 
 	for(int i = 0; i < vertexes; i++)
@@ -28,7 +28,6 @@ void primAL(GraphAL *graph, int src){
                 e.vertexStart = v;
                 e.vertexEnd = ver->vertex;
                 e.weight = ver->edge;
-                // e = new Edge(v, ver->vertex, ver->edge);
                 q->push(e);
             }
         }
@@ -38,14 +37,11 @@ void primAL(GraphAL *graph, int src){
             q->pop();
         } while(visited[e.vertexEnd]);
 
-        // cout<<e.vertexStart<<" "<<e.vertexEnd<<" "<<e.weight<<endl;
-        mst->addNode(e.vertexStart, e.vertexEnd, e.weight);
-        mst->addNode(e.vertexEnd, e.vertexStart, e.weight);
+        mst->addUndirectedEdge(e.vertexStart, e.vertexEnd, e.weight);
 
         visited[e.vertexEnd] = true;
         v = e.vertexEnd;
     }
-    mst->setNumOfVertexes(vertexes);
     cout<<endl<<"MST from Prim's algorithm in adjacency list:"<<endl;
     mst->printGraph();
     delete [] visited;

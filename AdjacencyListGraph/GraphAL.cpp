@@ -67,17 +67,32 @@ Node *GraphAL::getList(int ver){
     return array[ver];
 }
 
-void GraphAL::addNodes(int vertexes){
+void GraphAL::addVertexes(int vertexes){
     this->array = new Node *[vertexes];
 
     for(int i = 0; i<vertexes; i++) this->array[i] = nullptr;
+
+    this->numOfVertexes = vertexes;
 }
 
-void GraphAL::addNode(int ver1, int ver2, int dist){
+void GraphAL::addDirectedEdge(int ver1, int ver2, int dist){
     Node *temp = new Node(ver2, dist);
     temp->next = array[ver1];
     this->array[ver1] = temp;
     this->weight += dist;
+    this->numOfEdges += 1;
+}
+
+void GraphAL::addUndirectedEdge(int ver1, int ver2, int dist){
+    Node *temp = new Node(ver2, dist);
+    temp->next = array[ver1];
+    this->array[ver1] = temp;
+
+    Node *temp2 = new Node(ver1, dist);
+    temp2->next = array[ver2];
+    this->array[ver2] = temp2;
+    this->weight += dist;
+    this->numOfEdges += 1;
 }
 
 void GraphAL::fillGraphFromFile(bool directed){
@@ -94,22 +109,16 @@ void GraphAL::fillGraphFromFile(bool directed){
         int numberOfEdges, numberOfVertexes;
         in>>numberOfEdges>>numberOfVertexes;
 
-        this->addNodes(numberOfVertexes);
+        this->addVertexes(numberOfVertexes);
 
         int vertexStart, vertexEnd, distanceValue;
 
         for(int i = 0; i<numberOfEdges; i++){
             in>>vertexStart>>vertexEnd>>distanceValue;
             
-            this->addNode(vertexStart, vertexEnd, distanceValue);
-            if(!directed) {
-                this->addNode(vertexEnd, vertexStart, distanceValue);
-                this->weight -= distanceValue;
-            }
+            if(directed) this->addDirectedEdge(vertexStart, vertexEnd, distanceValue);
+            else this->addUndirectedEdge(vertexStart, vertexEnd, distanceValue);
         }
-
-        setNumOfEdges(numberOfEdges);
-        setNumOfVertexes(numberOfVertexes);
 
         in.close();
     }
