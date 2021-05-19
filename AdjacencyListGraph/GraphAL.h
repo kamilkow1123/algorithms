@@ -18,16 +18,18 @@ private:
     Node **array;
     int numOfVertexes;
     int numOfEdges;
+    int weight; //weight of the whole graph
 public:
     GraphAL();
     ~GraphAL();
-    void fillGraphFromFile();
+    void fillGraphFromFile(bool);
     void printGraph();
     void setNumOfVertexes(int);
     void setNumOfEdges(int);
     int getNumOfVertexes();
     int getNumOfEdges();
     Node *getList(int);
+    void addNode(int, int, int);
 };
 
 #endif

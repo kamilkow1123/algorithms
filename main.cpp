@@ -9,13 +9,15 @@ int main(){
     GraphAL *graphAL = new GraphAL();
     GraphIM *graphIM = new GraphIM();
 
-    graphAL->fillGraphFromFile();
+    graphAL->fillGraphFromFile(false); //directed graph
     graphIM->fillGraphFromFile();
 
-    dijkstraAL(graphAL, 0);
-    dijkstraIM(graphIM, 0);
-    bellmanFordAL(graphAL, 0);
-    bellmanFordIM(graphIM, 0);
+    graphAL->printGraph();
+
+    // dijkstraAL(graphAL, 0);
+    // dijkstraIM(graphIM, 0);
+    // bellmanFordAL(graphAL, 0);
+    // bellmanFordIM(graphIM, 0);
 
     return 0;
 }

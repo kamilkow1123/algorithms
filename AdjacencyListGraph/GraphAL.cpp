@@ -9,6 +9,7 @@ GraphAL::GraphAL(){
     this->array = nullptr;
     this->numOfVertexes = 0;
     this->numOfEdges = 0;
+    this->weight = 0;
 }
 
 GraphAL::~GraphAL(){
@@ -66,7 +67,14 @@ Node *GraphAL::getList(int ver){
     return array[ver];
 }
 
-void GraphAL::fillGraphFromFile(){
+void GraphAL::addNode(int ver1, int ver2, int dist){
+    Node *temp = new Node(ver2, dist);
+    temp->next = array[ver1];
+    array[ver1] = temp;
+    weight += dist;
+}
+
+void GraphAL::fillGraphFromFile(bool directed){
     if(numOfVertexes != 0){
         cout<<"Graph is not empty"<<endl;
         return;
@@ -89,9 +97,9 @@ void GraphAL::fillGraphFromFile(){
 
         for(int i = 0; i<numberOfEdges; i++){
             in>>vertexStart>>vertexEnd>>distanceValue;
-            temp = new Node(vertexEnd, distanceValue);
-            temp->next = array[vertexStart];
-            array[vertexStart] = temp;
+            
+            this->addNode(vertexStart, vertexEnd, distanceValue);
+            if(!directed) this->addNode(vertexEnd, vertexStart, distanceValue);
         }
 
         setNumOfEdges(numberOfEdges);
