@@ -19,7 +19,9 @@ public:
     int findElement(int, int);
     int getStartingVertexOfEdge(int);
     int getEndingVertexOfEdge(int);
-    void addEdge(int, int, int);
+    void addDirectedEdge(int, int, int, int);
+    void addUndirectedEdge(int, int, int, int);
+    void addVertexes(int);
 };
 
 #endif

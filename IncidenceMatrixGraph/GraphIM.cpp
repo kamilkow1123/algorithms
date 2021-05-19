@@ -29,7 +29,6 @@ void GraphIM::printGraph(){
         }
         cout<<endl;
     }
-    cout<<endl;
     cout<<"Graph weight: "<<weight<<endl;
 }
 
@@ -73,9 +72,23 @@ int GraphIM::getEndingVertexOfEdge(int j){
         return -1;
 }
 
-void GraphIM::addEdge(int ver, int edge, int dist){
-    graph[ver][edge] = dist; 
-    if(dist > 0) weight += dist;
+void GraphIM::addVertexes(int vertexes){
+    this->graph = new int *[vertexes];
+    this->numOfVertexes = vertexes;
+}
+
+void GraphIM::addUndirectedEdge(int ver1, int ver2, int edge, int dist){
+    graph[ver1][edge] = dist; 
+    graph[ver2][edge] = dist;
+    this->weight += dist;
+    this->numOfEdges += 1;
+}
+
+void GraphIM::addDirectedEdge(int ver1, int ver2, int edge, int dist){
+    graph[ver1][edge] = dist; 
+    graph[ver2][edge] = -1*dist;
+    this->weight += dist;
+    this->numOfEdges += 1;
 }
 
 void GraphIM::fillGraphFromFile(bool directed){
@@ -92,7 +105,7 @@ void GraphIM::fillGraphFromFile(bool directed){
         int numberOfEdges, numberOfVertexes;
         in>>numberOfEdges>>numberOfVertexes;
 
-        graph = new int *[numberOfVertexes];
+        this->addVertexes(numberOfVertexes);
 
         for(int i = 0; i<numberOfVertexes; ++i){
             graph[i] = new int [numberOfEdges];
@@ -104,15 +117,10 @@ void GraphIM::fillGraphFromFile(bool directed){
 
         for(int i = 0; i<numberOfEdges; i++){
             in>>vertexStart>>vertexEnd>>distanceValue;
-            this->addEdge(vertexStart, i, distanceValue);
-            if(directed) distanceValue *= -1;
-            this->addEdge(vertexEnd, i, distanceValue);
-            if(!directed) weight -= distanceValue;
+
+            if(directed) this->addDirectedEdge(vertexStart, vertexEnd, i, distanceValue);
+            else this->addUndirectedEdge(vertexStart, vertexEnd, i, distanceValue);
         }
-
-        setNumOfEdges(numberOfEdges);
-        setNumOfVertexes(numberOfVertexes);
-
         in.close();
     }
     else{

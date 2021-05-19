@@ -6,17 +6,17 @@ struct Edge{
     int vertexEnd;
     int weight;
 
-    Edge(){
-        this->vertexStart = 0;
-        this->vertexEnd = 0;
-        this->weight = 0;
-    }
+    // Edge(){
+    //     this->vertexStart = 0;
+    //     this->vertexEnd = 0;
+    //     this->weight = 0;
+    // }
 
-    Edge(int vertexStart, int vertexEnd, int weight){
-        this->vertexStart = vertexStart;
-        this->vertexEnd = vertexEnd;
-        this->weight = weight;
-    }
+    // Edge(int vertexStart, int vertexEnd, int weight){
+    //     this->vertexStart = vertexStart;
+    //     this->vertexEnd = vertexEnd;
+    //     this->weight = weight;
+    // }
 };
 
 class Queue{
