@@ -3,14 +3,14 @@
 
 class GraphIM{ // graph in incidence matrix
 private:
+    int **graph;
     int numOfVertexes;
     int numOfEdges;
-    int **graph;
-
+    int weight; //weight of the whole graph
 public:
     GraphIM();
     ~GraphIM();
-    void fillGraphFromFile();
+    void fillGraphFromFile(bool);
     void printGraph();
     void setNumOfVertexes(int);
     void setNumOfEdges(int);
@@ -19,6 +19,7 @@ public:
     int findElement(int, int);
     int getStartingVertexOfEdge(int);
     int getEndingVertexOfEdge(int);
+    void addEdge(int, int, int);
 };
 
 #endif

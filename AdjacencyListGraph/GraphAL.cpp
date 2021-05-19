@@ -45,6 +45,7 @@ void GraphAL::printGraph(){
         cout<<endl;
     }
     cout<<endl;
+    cout<<"Graph weight: "<<weight<<endl;
 }
 
 void GraphAL::setNumOfEdges(int num){
@@ -99,7 +100,10 @@ void GraphAL::fillGraphFromFile(bool directed){
             in>>vertexStart>>vertexEnd>>distanceValue;
             
             this->addNode(vertexStart, vertexEnd, distanceValue);
-            if(!directed) this->addNode(vertexEnd, vertexStart, distanceValue);
+            if(!directed) {
+                this->addNode(vertexEnd, vertexStart, distanceValue);
+                weight -= distanceValue;
+            }
         }
 
         setNumOfEdges(numberOfEdges);

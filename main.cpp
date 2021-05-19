@@ -9,10 +9,10 @@ int main(){
     GraphAL *graphAL = new GraphAL();
     GraphIM *graphIM = new GraphIM();
 
-    graphAL->fillGraphFromFile(false); //directed graph
-    graphIM->fillGraphFromFile();
+    graphAL->fillGraphFromFile(false); // false - undirected graph, true - directed
+    graphIM->fillGraphFromFile(true); // false - undirected graph, true - directed
 
-    graphAL->printGraph();
+    graphIM->printGraph();
 
     // dijkstraAL(graphAL, 0);
     // dijkstraIM(graphIM, 0);

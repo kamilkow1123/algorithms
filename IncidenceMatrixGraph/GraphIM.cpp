@@ -9,6 +9,7 @@ GraphIM::GraphIM(){
     this->numOfVertexes = 0;
     this->numOfEdges = 0;
     this->graph = nullptr;
+    this->weight = 0;
 }
 
 GraphIM::~GraphIM(){
@@ -29,6 +30,7 @@ void GraphIM::printGraph(){
         cout<<endl;
     }
     cout<<endl;
+    cout<<"Graph weight: "<<weight<<endl;
 }
 
 void GraphIM::setNumOfEdges(int num){
@@ -71,7 +73,12 @@ int GraphIM::getEndingVertexOfEdge(int j){
         return -1;
 }
 
-void GraphIM::fillGraphFromFile(){
+void GraphIM::addEdge(int ver, int edge, int dist){
+    graph[ver][edge] = dist; 
+    if(dist > 0) weight += dist;
+}
+
+void GraphIM::fillGraphFromFile(bool directed){
     if(numOfVertexes != 0){
         cout<<"Graph is not empty"<<endl;
         return;
@@ -97,8 +104,10 @@ void GraphIM::fillGraphFromFile(){
 
         for(int i = 0; i<numberOfEdges; i++){
             in>>vertexStart>>vertexEnd>>distanceValue;
-            graph[vertexStart][i] = distanceValue; // graph[vertexStart][vertexEnd] for adjacency matrix
-            graph[vertexEnd][i] = -1*distanceValue; // comment this for adjacency matrix
+            this->addEdge(vertexStart, i, distanceValue);
+            if(directed) distanceValue *= -1;
+            this->addEdge(vertexEnd, i, distanceValue);
+            if(!directed) weight -= distanceValue;
         }
 
         setNumOfEdges(numberOfEdges);
