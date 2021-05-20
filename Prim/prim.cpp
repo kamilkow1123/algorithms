@@ -51,7 +51,7 @@ void primIM(GraphIM *graph, int src){
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
     int edges = graph->getNumOfEdges(); // number of edges                      
 	bool *visited = new bool[vertexes]; // boolean array to mark visted/unvisted for each vertex
-    GraphIM *mst = new GraphIM();
+    GraphAL *mst = new GraphAL();
     mst->addVertexes(vertexes);
 	
 	// set the vertexes with infinity distance and mark them unvisited 
@@ -60,16 +60,17 @@ void primIM(GraphIM *graph, int src){
 		visited[i] = false;
 	}
 
-    // visited[src] = true;
+    visited[src] = true;
+    int v = 0;
     Edge e;
     Queue *q = new Queue(edges); 
 
     for(int i = 0; i < vertexes - 1; i++){
         for(int j = 0; j < edges; j++){
-            if(graph->findElement(i,j) > 0 && !visited[graph->getEndingVertexOfUndirectedEdge(j,i)]){
-                e.vertexStart = i;
-                e.vertexEnd = graph->getEndingVertexOfUndirectedEdge(j,i);
-                e.weight = graph->findElement(i,j);
+            if(graph->findElement(v,j) > 0 && !visited[graph->getEndingVertexOfUndirectedEdge(j,v)]){
+                e.vertexStart = v;
+                e.vertexEnd = graph->getEndingVertexOfUndirectedEdge(j,v);
+                e.weight = graph->findElement(v,j);
                 q->push(e);
             }
         }
@@ -79,12 +80,13 @@ void primIM(GraphIM *graph, int src){
             q->pop();
         } while(visited[e.vertexEnd]);
 
-        cout<<e.vertexStart<<" "<<e.vertexEnd<<" "<<e.weight<<endl;
-        // mst->addUndirectedEdge(e.vertexStart, e.vertexEnd, e.weight);
+        // cout<<e.vertexStart<<" "<<e.vertexEnd<<" "<<e.weight<<endl;
+        mst->addUndirectedEdge(e.vertexStart, e.vertexEnd, e.weight);
 
         visited[e.vertexEnd] = true;
+        v = e.vertexEnd;
     }
     cout<<endl<<"MST from Prim's algorithm in incidence matrix:"<<endl;
-    // mst->printGraph();
+    mst->printGraph();
     delete [] visited;
 }
