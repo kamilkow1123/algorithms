@@ -69,7 +69,18 @@ int GraphIM::getEndingVertexOfEdge(int j){
         if(graph[i][j] < 0)
             return i;
     }
-        return -1;
+    return -1;
+}
+
+int GraphIM::getEndingVertexOfUndirectedEdge(int j, int currentVertex){
+    if(j > numOfEdges - 1) return -1;
+    
+    for(int i = 0; i<numOfVertexes; i++){
+        if(i == currentVertex) continue;
+        if(graph[i][j] > 0)
+            return i;
+    }
+    return -1;
 }
 
 void GraphIM::addVertexes(int vertexes){
@@ -77,16 +88,16 @@ void GraphIM::addVertexes(int vertexes){
     this->numOfVertexes = vertexes;
 }
 
-void GraphIM::addUndirectedEdge(int ver1, int ver2, int edge, int dist){
-    graph[ver1][edge] = dist; 
-    graph[ver2][edge] = dist;
+void GraphIM::addUndirectedEdge(int ver1, int ver2, int dist){
+    graph[ver1][this->numOfEdges] = dist; 
+    graph[ver2][this->numOfEdges] = dist;
     this->weight += dist;
     this->numOfEdges += 1;
 }
 
-void GraphIM::addDirectedEdge(int ver1, int ver2, int edge, int dist){
-    graph[ver1][edge] = dist; 
-    graph[ver2][edge] = -1*dist;
+void GraphIM::addDirectedEdge(int ver1, int ver2, int dist){
+    graph[ver1][this->numOfEdges] = dist; 
+    graph[ver2][this->numOfEdges] = -1*dist;
     this->weight += dist;
     this->numOfEdges += 1;
 }
@@ -118,8 +129,8 @@ void GraphIM::fillGraphFromFile(bool directed){
         for(int i = 0; i<numberOfEdges; i++){
             in>>vertexStart>>vertexEnd>>distanceValue;
 
-            if(directed) this->addDirectedEdge(vertexStart, vertexEnd, i, distanceValue);
-            else this->addUndirectedEdge(vertexStart, vertexEnd, i, distanceValue);
+            if(directed) this->addDirectedEdge(vertexStart, vertexEnd, distanceValue);
+            else this->addUndirectedEdge(vertexStart, vertexEnd, distanceValue);
         }
         in.close();
     }
