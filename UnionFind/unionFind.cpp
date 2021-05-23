@@ -1,7 +1,7 @@
 #include "unionFind.h"
 
 UnionFind::UnionFind(int n){
-    this->set = new UnionNode[n];
+    set = new UnionNode[n];
 }
 
 UnionFind::~UnionFind(){
