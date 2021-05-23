@@ -10,7 +10,7 @@ void kruskalAL(GraphAL *graph){
     Edge edge;
 
     UnionFind set(vertexes);
-    Queue *queue = new Queue(edges);
+    Queue *queue = new Queue(2*edges);
     GraphAL *mst = new GraphAL();
     mst->addVertexes(vertexes);
 
@@ -24,11 +24,10 @@ void kruskalAL(GraphAL *graph){
             edge.vertexEnd = ver->vertex;
             edge.weight = ver->edge;
             queue->push(edge);
-            // cout<<edge.vertexStart<<" "<<edge.vertexEnd<<" "<<edge.weight<<endl;
         }
     }
     
-    for(int i = 1; i < vertexes; i++){
+    for(int i = 0; i < vertexes - 1; i++){
         do{
             edge = queue->front();
             queue->pop();
@@ -38,5 +37,44 @@ void kruskalAL(GraphAL *graph){
         set.unionSets(edge);
     }
     cout<<endl<<"MST from Kruskal's algorithm in adjacency list:"<<endl;
+    mst->printGraph();
+}
+
+void kruskalIM(GraphIM *graph){
+    int vertexes = graph->getNumOfVertexes(); // number of vertexes
+    int edges = graph->getNumOfEdges(); // number of edges  
+    Edge edge;
+
+    UnionFind set(vertexes);
+    Queue *queue = new Queue(2*edges);
+    GraphAL *mst = new GraphAL();
+    mst->addVertexes(vertexes);
+
+    for(int i = 0; i < vertexes; i++){
+        set.makeSet(i);
+    }
+
+    for(int i = 0; i < vertexes; i++){
+        for(int j = 0; j < edges; j++){
+            if(graph->findElement(i, j) > 0){
+                edge.vertexStart = i;
+                edge.vertexEnd = graph->getEndingVertexOfUndirectedEdge(j,i);
+                edge.weight = graph->findElement(i, j);
+                queue->push(edge);
+            }
+        }
+    }
+    
+    for(int i = 0; i < vertexes - 1; i++){
+        do{
+            edge = queue->front();
+            queue->pop();
+        } while(set.findSet(edge.vertexStart) == set.findSet(edge.vertexEnd));
+
+        // cout<<edge.vertexStart<<" "<<edge.vertexEnd<<" "<<edge.weight<<endl;
+        mst->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
+        set.unionSets(edge);
+    }
+    cout<<endl<<"MST from Kruskal's algorithm in incidence matrix:"<<endl;
     mst->printGraph();
 }

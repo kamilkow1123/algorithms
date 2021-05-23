@@ -12,16 +12,16 @@ int main(){
     GraphIM *graphIM = new GraphIM();
 
     graphAL->fillGraphFromFile(false); // false - undirected graph, true - directed
-    graphIM->fillGraphFromFile(true); // false - undirected graph, true - directed
+    graphIM->fillGraphFromFile(false); // false - undirected graph, true - directed
 
     graphAL->printGraph();
-    // graphIM->printGraph();
+    graphIM->printGraph();
 
     // primAL(graphAL, 0);
     // primIM(graphIM, 0);
 
     kruskalAL(graphAL);
-    // kruskalIM(graphIM);
+    kruskalIM(graphIM);
 
     // dijkstraAL(graphAL, 0);
     // dijkstraIM(graphIM, 0);
