@@ -7,7 +7,7 @@ using namespace std;
 void kruskalAL(GraphAL *graph){
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
     if(vertexes == 0){
-        cout<<"Graph is empty!"<<endl;
+        cout<<" Graph is empty!"<<endl;
         return;
     }
     int edges = graph->getNumOfEdges(); // number of edges  
@@ -40,14 +40,14 @@ void kruskalAL(GraphAL *graph){
         mst->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
         set.unionSets(edge);
     }
-    cout<<endl<<"MST from Kruskal's algorithm in adjacency list:"<<endl;
+    cout<<endl<<" MST from Kruskal's algorithm in adjacency list:"<<endl;
     mst->printGraph();
 }
 
 void kruskalIM(GraphIM *graph){
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
     if(vertexes == 0){
-        cout<<"Graph is empty!"<<endl;
+        cout<<" Graph is empty!"<<endl;
         return;
     }
     int edges = graph->getNumOfEdges(); // number of edges  
@@ -83,6 +83,6 @@ void kruskalIM(GraphIM *graph){
         mst->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
         set.unionSets(edge);
     }
-    cout<<endl<<"MST from Kruskal's algorithm in incidence matrix:"<<endl;
+    cout<<endl<<" MST from Kruskal's algorithm in incidence matrix:"<<endl;
     mst->printGraph();
 }

@@ -7,7 +7,7 @@ using namespace std;
 void bellmanFordAL(GraphAL *graph, int src){
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
     if(vertexes == 0){
-        cout<<"Graph is empty!"<<endl;
+        cout<<" Graph is empty!"<<endl;
         return;
     }
     int edges = graph->getNumOfEdges(); // number of edges
@@ -43,17 +43,17 @@ void bellmanFordAL(GraphAL *graph, int src){
     for(int j = 0; j < vertexes; j++){
         for(Node *ver = graph->getList(j); ver; ver = ver->next){
             if((distance[ver->vertex] > distance[j] + ver->edge)){
-                cout<<"Negative cycle detected!"<<endl;
+                cout<<" Negative cycle detected!"<<endl;
                 return;
             }
         }
     }
 
-    cout<<endl<<"Results of the Bellman-Ford algorithm for adjacency list: "<<endl;
-	cout<<"Vertex\tDistance from source\tPrevious vertex"<<endl;
+    cout<<endl<<" Results of the Bellman-Ford algorithm for adjacency list: "<<endl;
+	cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
 	for(int i = 0; i < vertexes; i++) //printing             
 	{ 
-		cout<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
+		cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
 	}
     cout<<endl;
 
@@ -64,7 +64,7 @@ void bellmanFordAL(GraphAL *graph, int src){
 void bellmanFordIM(GraphIM *graph, int src){
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
     if(vertexes == 0){
-        cout<<"Graph is empty!"<<endl;
+        cout<<" Graph is empty!"<<endl;
         return;
     }
     int edges = graph->getNumOfEdges(); // number of edges
@@ -98,16 +98,16 @@ void bellmanFordIM(GraphIM *graph, int src){
         int v = graph->getEndingVertexOfEdge(j);
         int w = graph->findElement(u, j);
         if(distance[u] != INT_MAX && distance[u] + w < distance[v]){
-            cout<<"Negative cycle detected!"<<endl;
+            cout<<" Negative cycle detected!"<<endl;
             return;
         }
     }
 
-    cout<<endl<<"Results of the Bellman-Ford algorithm for incidence matrix: "<<endl;
-	cout<<"Vertex\tDistance from source\tPrevious vertex"<<endl;
+    cout<<endl<<" Results of the Bellman-Ford algorithm for incidence matrix: "<<endl;
+	cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
 	for(int i = 0; i < vertexes; i++) //printing             
 	{ 
-		cout<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
+		cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
 	}
     cout<<endl;
 

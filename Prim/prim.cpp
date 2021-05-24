@@ -7,7 +7,7 @@ using namespace std;
 void primAL(GraphAL *graph, int src){
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
     if(vertexes == 0){
-        cout<<"Graph is empty!"<<endl;
+        cout<<" Graph is empty!"<<endl;
         return;
     }
     int edges = graph->getNumOfEdges(); // number of edges                      
@@ -46,7 +46,7 @@ void primAL(GraphAL *graph, int src){
         visited[e.vertexEnd] = true;
         v = e.vertexEnd;
     }
-    cout<<endl<<"MST from Prim's algorithm in adjacency list:"<<endl;
+    cout<<endl<<" MST from Prim's algorithm in adjacency list:"<<endl;
     mst->printGraph();
     delete [] visited;
 }
@@ -54,7 +54,7 @@ void primAL(GraphAL *graph, int src){
 void primIM(GraphIM *graph, int src){
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
     if(vertexes == 0){
-        cout<<"Graph is empty!"<<endl;
+        cout<<" Graph is empty!"<<endl;
         return;
     }
     int edges = graph->getNumOfEdges(); // number of edges                      
@@ -94,7 +94,7 @@ void primIM(GraphIM *graph, int src){
         visited[e.vertexEnd] = true;
         v = e.vertexEnd;
     }
-    cout<<endl<<"MST from Prim's algorithm in incidence matrix:"<<endl;
+    cout<<endl<<" MST from Prim's algorithm in incidence matrix:"<<endl;
     mst->printGraph();
     delete [] visited;
 }

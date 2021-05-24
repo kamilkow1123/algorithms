@@ -19,27 +19,27 @@ GraphIM::~GraphIM(){
 
 void GraphIM::printGraph(){
     if(numOfVertexes == 0){
-        cout<<"Graph is empty!"<<endl;
+        cout<<" Graph is empty!"<<endl;
         return;
     }
-    cout<<"   ";
+    cout<<"    ";
     for(int j = 0; j < numOfEdges; j++){
         cout<<setw(5)<<j;
     }
-    cout<<endl<<"   ";
+    cout<<endl<<"    ";
     for(int j = 0; j < numOfEdges*5 + 3; j++){
         cout<<"-";
     }
     cout<<endl;
 
     for(int i = 0; i<numOfVertexes; i++){
-        cout<<i<<" |";
+        cout<<" "<<i<<" |";
         for(int j = 0; j<numOfEdges; j++){ // change to numOfVertexes for adjacency matrix
             cout<<setw(5)<<graph[i][j];
         }
         cout<<endl;
     }
-    cout<<endl<<"Graph weight: "<<weight<<endl<<endl<<endl;
+    cout<<endl<<" Graph weight: "<<weight<<endl<<endl<<endl;
 }
 
 void GraphIM::setNumOfEdges(int num){
@@ -127,7 +127,7 @@ void GraphIM::addDirectedEdge(int ver1, int ver2, int dist){
 
 void GraphIM::fillGraphFromFile(bool directed){
     if(numOfVertexes != 0){
-        cout<<"Graph is not empty"<<endl;
+        cout<<" Graph is not empty"<<endl;
         return;
     }
 
@@ -149,11 +149,11 @@ void GraphIM::fillGraphFromFile(bool directed){
             if(directed) this->addDirectedEdge(vertexStart, vertexEnd, distanceValue);
             else this->addUndirectedEdge(vertexStart, vertexEnd, distanceValue);
         }
-        cout<<"Successfully filled matrix!"<<endl;
+        cout<<" Successfully filled matrix!"<<endl;
         in.close();
     }
     else{
-        cout<<"Cannot open graph.txt"<<endl;
+        cout<<" Cannot open graph.txt"<<endl;
     }
 }
 

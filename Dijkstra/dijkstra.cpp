@@ -22,7 +22,7 @@ void dijkstraAL(GraphAL *graph, int src) // adjacency list
 {
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
     if(vertexes == 0){
-        cout<<"Graph is empty!"<<endl;
+        cout<<" Graph is empty!"<<endl;
         return;
     }
     int edges = graph->getNumOfEdges(); // number of edges
@@ -54,11 +54,11 @@ void dijkstraAL(GraphAL *graph, int src) // adjacency list
             }
 		}
 	}
-    cout<<endl<<"Results of the Dijkstra algorithm for adjacency list: "<<endl;
-	cout<<"Vertex\tDistance from source\tPrevious vertex"<<endl;
+    cout<<endl<<" Results of the Dijkstra algorithm for adjacency list: "<<endl;
+	cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
 	for(int i = 0; i < vertexes; i++) //printing             
 	{ 
-		cout<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
+		cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
 	}
     cout<<endl;
 
@@ -71,7 +71,7 @@ void dijkstraIM(GraphIM *graph, int src) // incidence matrix
 {
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
     if(vertexes == 0){
-        cout<<"Graph is empty!"<<endl;
+        cout<<" Graph is empty!"<<endl;
         return;
     }
     int edges = graph->getNumOfEdges(); // number of edges
@@ -106,11 +106,11 @@ void dijkstraIM(GraphIM *graph, int src) // incidence matrix
             }
 		}
 	}
-    cout<<endl<<"Results of the Dijkstra algorithm for incidence matrix: "<<endl;
-	cout<<"Vertex\tDistance from source\tPrevious vertex"<<endl;
+    cout<<endl<<" Results of the Dijkstra algorithm for incidence matrix: "<<endl;
+	cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
 	for(int i = 0; i < vertexes; i++) //printing             
 	{ 
-		cout<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
+		cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
 	}
     cout<<endl;
 

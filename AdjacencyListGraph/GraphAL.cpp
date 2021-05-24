@@ -28,15 +28,15 @@ GraphAL::~GraphAL(){
 
 void GraphAL::printGraph(){
     if(numOfVertexes == 0){
-        cout<<"Graph is empty!"<<endl;
+        cout<<" Graph is empty!"<<endl;
         return;
     }
 
     Node *temp;
-    
+
     cout<<endl;
     for(int i = 0; i < numOfVertexes; i++){
-        cout<<"["<<i<<"] = ";
+        cout<<" ["<<i<<"] = ";
         temp = array[i];
         while(temp){
             cout<<setw(3)<<"("<<temp->vertex<<":"<<temp->edge<<")";
@@ -45,7 +45,7 @@ void GraphAL::printGraph(){
         }
         cout<<endl;
     }
-    cout<<endl<<"Graph weight: "<<weight<<endl<<endl<<endl;
+    cout<<endl<<" Graph weight: "<<weight<<endl<<endl<<endl;
 }
 
 void GraphAL::setNumOfEdges(int num){
@@ -98,7 +98,7 @@ void GraphAL::addUndirectedEdge(int ver1, int ver2, int dist){
 
 void GraphAL::fillGraphFromFile(bool directed){
     if(numOfVertexes != 0){
-        cout<<"Graph is not empty"<<endl;
+        cout<<" Graph is not empty"<<endl;
         return;
     }
 
@@ -120,11 +120,11 @@ void GraphAL::fillGraphFromFile(bool directed){
             if(directed) this->addDirectedEdge(vertexStart, vertexEnd, distanceValue);
             else this->addUndirectedEdge(vertexStart, vertexEnd, distanceValue);
         }
-        cout<<"Successfully filled list!"<<endl;
+        cout<<" Successfully filled list!"<<endl;
         in.close();
     }
     else{
-        cout<<"Cannot open graph.txt"<<endl;
+        cout<<" Cannot open graph.txt"<<endl;
     }
 }
 

@@ -12,24 +12,24 @@ GraphIM *graphIM = new GraphIM();
 
 void deleteGraphAL(GraphAL **graphAL){
     if((*graphAL)->getNumOfVertexes() == 0){
-        cout<<"Graph is empty!"<<endl;
+        cout<<" Graph is empty!"<<endl;
         return;
     }
 
     delete *graphAL;
     *graphAL = new GraphAL();
-    cout<<"Successfully deleted list!"<<endl;
+    cout<<" Successfully deleted list!"<<endl;
 }
 
 void deleteGraphIM(GraphIM **graphIM){
     if((*graphIM)->getNumOfVertexes() == 0){
-        cout<<"Graph is empty!"<<endl;
+        cout<<" Graph is empty!"<<endl;
         return;
     }
 
     delete *graphIM;
     *graphIM = new GraphIM();
-    cout<<"Successfully deleted matrix!"<<endl;
+    cout<<" Successfully deleted matrix!"<<endl;
 }
 
 int askForStartingVertex(){
@@ -40,7 +40,7 @@ int askForStartingVertex(){
     int src;
 
     do{
-        cout<<"Enter starting vertex: ";
+        cout<<" Enter starting vertex: ";
         cin>>src;
     }while(src < 0 || src >= graphAL->getNumOfVertexes());
 
@@ -50,29 +50,29 @@ int askForStartingVertex(){
 void testMenu(){
     do{
         system("cls");
-        cout<<"___________TESTING___________"<<endl;
-        cout<<"[1] Fill graph from the file"<<endl;
-        cout<<"[2] Fill graph with random data"<<endl;
-        cout<<"[3] Print graph"<<endl;
-        cout<<"[4] Dijkstra's algorithm"<<endl;
-        cout<<"[5] Bellman-Ford algorithm"<<endl;
-        cout<<"[6] Prim's algorithm"<<endl;
-        cout<<"[7] Kruskal's algorithm"<<endl;
-        cout<<"[8] Delete graph"<<endl;
-        cout<<"[9] Exit"<<endl;
-        cout<<"Enter your choice: ";
+        cout<<" ___________TESTING___________"<<endl;
+        cout<<" [1] Fill graph from the file"<<endl;
+        cout<<" [2] Fill graph with random data"<<endl;
+        cout<<" [3] Print graph"<<endl;
+        cout<<" [4] Dijkstra's algorithm"<<endl;
+        cout<<" [5] Bellman-Ford algorithm"<<endl;
+        cout<<" [6] Prim's algorithm"<<endl;
+        cout<<" [7] Kruskal's algorithm"<<endl;
+        cout<<" [8] Delete graph"<<endl;
+        cout<<" [9] Exit"<<endl;
+        cout<<" Enter your choice: ";
         int choice, direction, src;
         cin>>choice;
 
         switch(choice){
             case 1: 
                 if(graphAL->getNumOfVertexes() != 0){
-                    cout<<"Graph is not empty!"<<endl;
+                    cout<<" Graph is not empty!"<<endl;
                     break;
                 }
 
                 do{
-                    cout<<"Undirected [0] or directed [1] graph? ";
+                    cout<<" Undirected [0] or directed [1] graph? ";
                     cin>>direction;
                 }while(direction != 0 && direction != 1);
                 
@@ -81,7 +81,7 @@ void testMenu(){
                 break;
             case 2: 
                 if(graphAL->getNumOfVertexes() != 0){
-                    cout<<"Graph is not empty!"<<endl;
+                    cout<<" Graph is not empty!"<<endl;
                     break;
                 }
                 
@@ -93,7 +93,7 @@ void testMenu(){
             case 4: 
                 src = askForStartingVertex();
                 if(src == -1){
-                    cout<<"Graph is empty!"<<endl;
+                    cout<<" Graph is empty!"<<endl;
                     break;
                 }
                 dijkstraAL(graphAL, src);
@@ -102,7 +102,7 @@ void testMenu(){
             case 5: 
                 src = askForStartingVertex();
                 if(src == -1){
-                    cout<<"Graph is empty!"<<endl;
+                    cout<<" Graph is empty!"<<endl;
                     break;
                 }
                 bellmanFordAL(graphAL, src);
@@ -111,7 +111,7 @@ void testMenu(){
             case 6: 
                 src = askForStartingVertex();
                 if(src == -1){
-                    cout<<"Graph is empty!"<<endl;
+                    cout<<" Graph is empty!"<<endl;
                     break;
                 }
                 primAL(graphAL, src);
@@ -119,7 +119,7 @@ void testMenu(){
                 break;
             case 7: 
                 if(graphAL->getNumOfVertexes() == 0){
-                    cout<<"Graph is empty!"<<endl;
+                    cout<<" Graph is empty!"<<endl;
                     break;
                 }
                 kruskalAL(graphAL);
@@ -127,7 +127,7 @@ void testMenu(){
                 break;
             case 8: 
                 if(graphAL->getNumOfVertexes() == 0){
-                    cout<<"Graph is empty!"<<endl;
+                    cout<<" Graph is empty!"<<endl;
                     break;
                 }
                 deleteGraphAL(&graphAL);
@@ -137,20 +137,20 @@ void testMenu(){
                 return;
                 break;
             default:
-                cout<<endl<<"Wrong choice"<<endl;
+                cout<<endl<<" Wrong choice"<<endl;
                 break;
         }
-        cout<<"Press any key to continue ";
+        cout<<" Press any key to continue ";
         getch();
     }while(true);
 }
 
 void startingMenu(){
-    cout<<"___________MENU___________"<<endl;
-    cout<<"[1] Test the algorithms"<<endl;
-    cout<<"[2] Run the experiment"<<endl;
-    cout<<"[3] Exit"<<endl;
-    cout<<"Enter your choice: ";
+    cout<<" ___________MENU___________"<<endl;
+    cout<<" [1] Test the algorithms"<<endl;
+    cout<<" [2] Run the experiment"<<endl;
+    cout<<" [3] Exit"<<endl;
+    cout<<" Enter your choice: ";
     int choice;
     cin>>choice;
 
@@ -165,7 +165,7 @@ void startingMenu(){
             return;
             break;
         default:
-            cout<<endl<<"Wrong choice!"<<endl;
+            cout<<endl<<" Wrong choice!"<<endl;
             break;
     }
 }
