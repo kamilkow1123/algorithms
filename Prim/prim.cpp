@@ -51,7 +51,7 @@ void primIM(GraphIM *graph, int src){
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
     int edges = graph->getNumOfEdges(); // number of edges                      
 	bool *visited = new bool[vertexes]; // boolean array to mark visted/unvisted for each vertex
-    GraphAL *mst = new GraphAL();
+    GraphIM *mst = new GraphIM();
     mst->addVertexes(vertexes);
 	
 	// set the vertexes with infinity distance and mark them unvisited 

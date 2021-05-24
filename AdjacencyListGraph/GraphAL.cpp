@@ -44,7 +44,7 @@ void GraphAL::printGraph(){
         }
         cout<<endl;
     }
-    cout<<"Graph weight: "<<weight<<endl<<endl;
+    cout<<endl<<"Graph weight: "<<weight<<endl<<endl<<endl;
 }
 
 void GraphAL::setNumOfEdges(int num){

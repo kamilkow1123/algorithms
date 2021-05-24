@@ -17,8 +17,8 @@ int main(){
     graphAL->printGraph();
     graphIM->printGraph();
 
-    // primAL(graphAL, 0);
-    // primIM(graphIM, 0);
+    primAL(graphAL, 0);
+    primIM(graphIM, 0);
 
     kruskalAL(graphAL);
     kruskalIM(graphIM);

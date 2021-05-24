@@ -22,14 +22,24 @@ void GraphIM::printGraph(){
         cout<<"Graph is empty!"<<endl;
         return;
     }
+    cout<<"       ";
+    for(int j = 0; j < numOfEdges; j++){
+        cout<<setw(5)<<j;
+    }
+    cout<<endl<<"       ";
+    for(int j = 0; j < numOfEdges*5 + 3; j++){
+        cout<<"-";
+    }
+    cout<<endl;
 
     for(int i = 0; i<numOfVertexes; i++){
+        cout<<setw(5)<<i<<" |";
         for(int j = 0; j<numOfEdges; j++){ // change to numOfVertexes for adjacency matrix
             cout<<setw(5)<<graph[i][j];
         }
         cout<<endl;
     }
-    cout<<"Graph weight: "<<weight<<endl;
+    cout<<endl<<"Graph weight: "<<weight<<endl<<endl<<endl;
 }
 
 void GraphIM::setNumOfEdges(int num){
@@ -86,9 +96,17 @@ int GraphIM::getEndingVertexOfUndirectedEdge(int j, int currentVertex){
 void GraphIM::addVertexes(int vertexes){
     this->graph = new int *[vertexes];
     this->numOfVertexes = vertexes;
+    for(int i = 0; i<numOfVertexes; i++){
+        this->graph[i] = new int[0];
+    }
 }
 
 void GraphIM::addUndirectedEdge(int ver1, int ver2, int dist){
+    for(int i = 0; i < this->numOfVertexes; i++){
+        graph[i] = (int*) realloc(graph[i], (this->numOfEdges + 1)*sizeof(int));
+        graph[i][this->numOfEdges] = 0;
+    }
+    
     graph[ver1][this->numOfEdges] = dist; 
     graph[ver2][this->numOfEdges] = dist;
     this->weight += dist;
@@ -96,6 +114,11 @@ void GraphIM::addUndirectedEdge(int ver1, int ver2, int dist){
 }
 
 void GraphIM::addDirectedEdge(int ver1, int ver2, int dist){
+    for(int i = 0; i < this->numOfVertexes; i++){
+        graph[i] = (int*) realloc(graph[i], (this->numOfEdges + 1)*sizeof(int));    // reallocing the array to add edge
+        graph[i][this->numOfEdges] = 0;                                             // filling the column with zeros
+    }
+
     graph[ver1][this->numOfEdges] = dist; 
     graph[ver2][this->numOfEdges] = -1*dist;
     this->weight += dist;
@@ -117,12 +140,6 @@ void GraphIM::fillGraphFromFile(bool directed){
         in>>numberOfEdges>>numberOfVertexes;
 
         this->addVertexes(numberOfVertexes);
-
-        for(int i = 0; i<numberOfVertexes; ++i){
-            graph[i] = new int [numberOfEdges];
-            for(int j = 0; j<numberOfEdges; ++j)
-                graph[i][j] = 0;                    //filling the array with zeros
-        }
 
         int vertexStart, vertexEnd, distanceValue;
 

@@ -47,7 +47,7 @@ void kruskalIM(GraphIM *graph){
 
     UnionFind set(vertexes);
     Queue *queue = new Queue(2*edges);
-    GraphAL *mst = new GraphAL();
+    GraphIM *mst = new GraphIM();
     mst->addVertexes(vertexes);
 
     for(int i = 0; i < vertexes; i++){
