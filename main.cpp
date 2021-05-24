@@ -1,27 +1,26 @@
 #include<iostream>
-#include "Dijkstra/dijkstra.cpp"
-#include "Bellman-Ford/bellmanFord.cpp"
-#include "Prim/prim.cpp"
-#include "Kruskal/kruskal.cpp"
-
+#include "Menu/menu.cpp"
 
 using namespace std;
 
 int main(){
-    GraphAL *graphAL = new GraphAL();
-    GraphIM *graphIM = new GraphIM();
+    startingMenu();
+    cout<<endl<<"Press any key to exit";
+    getch();
+    // GraphAL *graphAL = new GraphAL();
+    // GraphIM *graphIM = new GraphIM();
 
-    graphAL->fillGraphFromFile(false); // false - undirected graph, true - directed
-    graphIM->fillGraphFromFile(false); // false - undirected graph, true - directed
+    // graphAL->fillGraphFromFile(false); // false - undirected graph, true - directed
+    // graphIM->fillGraphFromFile(false); // false - undirected graph, true - directed
 
-    graphAL->printGraph();
-    graphIM->printGraph();
+    // graphAL->printGraph();
+    // graphIM->printGraph();
 
-    primAL(graphAL, 0);
-    primIM(graphIM, 0);
+    // primAL(graphAL, 0);
+    // primIM(graphIM, 0);
 
-    kruskalAL(graphAL);
-    kruskalIM(graphIM);
+    // kruskalAL(graphAL);
+    // kruskalIM(graphIM);
 
     // dijkstraAL(graphAL, 0);
     // dijkstraIM(graphIM, 0);

@@ -6,6 +6,10 @@ using namespace std;
 
 void kruskalAL(GraphAL *graph){
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
+    if(vertexes == 0){
+        cout<<"Graph is empty!"<<endl;
+        return;
+    }
     int edges = graph->getNumOfEdges(); // number of edges  
     Edge edge;
 
@@ -42,6 +46,10 @@ void kruskalAL(GraphAL *graph){
 
 void kruskalIM(GraphIM *graph){
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
+    if(vertexes == 0){
+        cout<<"Graph is empty!"<<endl;
+        return;
+    }
     int edges = graph->getNumOfEdges(); // number of edges  
     Edge edge;
 

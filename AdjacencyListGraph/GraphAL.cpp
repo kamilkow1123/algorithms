@@ -33,7 +33,8 @@ void GraphAL::printGraph(){
     }
 
     Node *temp;
-
+    
+    cout<<endl;
     for(int i = 0; i < numOfVertexes; i++){
         cout<<"["<<i<<"] = ";
         temp = array[i];
@@ -119,7 +120,7 @@ void GraphAL::fillGraphFromFile(bool directed){
             if(directed) this->addDirectedEdge(vertexStart, vertexEnd, distanceValue);
             else this->addUndirectedEdge(vertexStart, vertexEnd, distanceValue);
         }
-
+        cout<<"Successfully filled list!"<<endl;
         in.close();
     }
     else{

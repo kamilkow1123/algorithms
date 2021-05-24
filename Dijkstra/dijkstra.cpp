@@ -21,6 +21,10 @@ int minimumVertex(int *dist, bool *visited, int n)
 void dijkstraAL(GraphAL *graph, int src) // adjacency list
 {
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
+    if(vertexes == 0){
+        cout<<"Graph is empty!"<<endl;
+        return;
+    }
     int edges = graph->getNumOfEdges(); // number of edges
 	int *distance = new int[vertexes]; // integer array to calculate minimum distance for each vertex                          
 	bool *visited = new bool[vertexes]; // boolean array to mark visted/unvisted for each vertex
@@ -50,7 +54,7 @@ void dijkstraAL(GraphAL *graph, int src) // adjacency list
             }
 		}
 	}
-    cout<<"Results of the Dijkstra algorithm for adjacency list: "<<endl;
+    cout<<endl<<"Results of the Dijkstra algorithm for adjacency list: "<<endl;
 	cout<<"Vertex\tDistance from source\tPrevious vertex"<<endl;
 	for(int i = 0; i < vertexes; i++) //printing             
 	{ 
@@ -66,6 +70,10 @@ void dijkstraAL(GraphAL *graph, int src) // adjacency list
 void dijkstraIM(GraphIM *graph, int src) // incidence matrix 
 {
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
+    if(vertexes == 0){
+        cout<<"Graph is empty!"<<endl;
+        return;
+    }
     int edges = graph->getNumOfEdges(); // number of edges
 	int *distance = new int[vertexes]; // integer array to calculate minimum distance for each vertex                          
 	bool *visited = new bool[vertexes]; // boolean array to mark visted/unvisted for each vertex
@@ -98,7 +106,7 @@ void dijkstraIM(GraphIM *graph, int src) // incidence matrix
             }
 		}
 	}
-    cout<<"Results of the Dijkstra algorithm for incidence matrix: "<<endl;
+    cout<<endl<<"Results of the Dijkstra algorithm for incidence matrix: "<<endl;
 	cout<<"Vertex\tDistance from source\tPrevious vertex"<<endl;
 	for(int i = 0; i < vertexes; i++) //printing             
 	{ 

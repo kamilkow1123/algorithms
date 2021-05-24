@@ -6,6 +6,10 @@ using namespace std;
 
 void primAL(GraphAL *graph, int src){
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
+    if(vertexes == 0){
+        cout<<"Graph is empty!"<<endl;
+        return;
+    }
     int edges = graph->getNumOfEdges(); // number of edges                      
 	bool *visited = new bool[vertexes]; // boolean array to mark visted/unvisted for each vertex
     GraphAL *mst = new GraphAL();
@@ -49,6 +53,10 @@ void primAL(GraphAL *graph, int src){
 
 void primIM(GraphIM *graph, int src){
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
+    if(vertexes == 0){
+        cout<<"Graph is empty!"<<endl;
+        return;
+    }
     int edges = graph->getNumOfEdges(); // number of edges                      
 	bool *visited = new bool[vertexes]; // boolean array to mark visted/unvisted for each vertex
     GraphIM *mst = new GraphIM();

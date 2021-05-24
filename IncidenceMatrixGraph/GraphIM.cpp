@@ -22,18 +22,18 @@ void GraphIM::printGraph(){
         cout<<"Graph is empty!"<<endl;
         return;
     }
-    cout<<"       ";
+    cout<<"   ";
     for(int j = 0; j < numOfEdges; j++){
         cout<<setw(5)<<j;
     }
-    cout<<endl<<"       ";
+    cout<<endl<<"   ";
     for(int j = 0; j < numOfEdges*5 + 3; j++){
         cout<<"-";
     }
     cout<<endl;
 
     for(int i = 0; i<numOfVertexes; i++){
-        cout<<setw(5)<<i<<" |";
+        cout<<i<<" |";
         for(int j = 0; j<numOfEdges; j++){ // change to numOfVertexes for adjacency matrix
             cout<<setw(5)<<graph[i][j];
         }
@@ -149,6 +149,7 @@ void GraphIM::fillGraphFromFile(bool directed){
             if(directed) this->addDirectedEdge(vertexStart, vertexEnd, distanceValue);
             else this->addUndirectedEdge(vertexStart, vertexEnd, distanceValue);
         }
+        cout<<"Successfully filled matrix!"<<endl;
         in.close();
     }
     else{
