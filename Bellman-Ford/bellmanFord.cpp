@@ -29,7 +29,7 @@ void bellmanFordAL(GraphAL *graph, int src){
         for(int j = 0; j < vertexes; j++){
             for(Node *ver = graph->getList(j); ver; ver = ver->next){
                 // updating the minimum distance for the particular vertex
-                if((distance[ver->vertex] > distance[j] + ver->edge)){
+                if((distance[j] != INT_MAX) && (distance[ver->vertex] > distance[j] + ver->edge)){
                     distance[ver->vertex] = distance[j] + ver->edge;
                     previous[ver->vertex] = j;
                     stop = false;
