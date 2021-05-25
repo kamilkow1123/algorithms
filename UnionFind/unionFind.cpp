@@ -41,10 +41,18 @@ void UnionFind::unionSets(Edge edge){
 }
 
 bool UnionFind::isOneSet(){
-    int firstParent = set[0].up;
-    
+    int firstParent = findSet(0);
+
     for(int i = 1; i < this->numOfVer; i++){
-        if(firstParent != set[i].up) return false;
+        if(firstParent != findSet(i)) return false;
     }
     return true;
+}
+
+void UnionFind::printSet(){
+    cout<<"Set: ";
+    for(int i = 0; i < this->numOfVer; i++){
+        cout<<findSet(i)<<" ";
+    }
+    cout<<endl;
 }

@@ -17,6 +17,7 @@ public:
     int findSet(int v);         //returns the root of the vertex's tree
     void unionSets(Edge e);     //union two sets into one
     bool isOneSet();
+    void printSet();
 };
 
 #endif

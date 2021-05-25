@@ -42,6 +42,7 @@ void generateGraph(GraphAL **graphAL, GraphIM **graphIM, int v, float density, b
     }
 
     int edges = (int)((float)(((density/100) * v * (v-1))/2));
+
     (*graphAL)->addVertexes(v);
     (*graphIM)->addVertexes(v);
 
@@ -55,12 +56,14 @@ void generateGraph(GraphAL **graphAL, GraphIM **graphIM, int v, float density, b
     }
 
     while(!set.isOneSet()){ //creating connected graph
+        // set.printSet();
         do{
             edge.vertexStart = rand()%v;
             edge.vertexEnd = rand()%v;
         }while((edge.vertexStart == edge.vertexEnd) || (set.findSet(edge.vertexStart) == set.findSet(edge.vertexEnd)));
         
-        edge.weight = rand()%edges;
+        edge.weight = (rand()%(2*edges)) + 1;
+
         if(!directed){
             (*graphAL)->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
             (*graphIM)->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
@@ -73,14 +76,13 @@ void generateGraph(GraphAL **graphAL, GraphIM **graphIM, int v, float density, b
         set.unionSets(edge);
     }
     //now we have a connected graph and need to add remaining edges
-
-    for(int i = 0; i < edges - currentEdges; i++){
+    while(currentEdges < edges){
         do{
             edge.vertexStart = rand()%v;
             edge.vertexEnd = rand()%v;
         }while((edge.vertexStart == edge.vertexEnd) || (*graphIM)->checkIfEdgeExists(edge.vertexStart, edge.vertexEnd));
 
-        edge.weight = rand()%edges;
+        edge.weight = (rand()%(2*edges)) + 1;
         if(!directed){
             (*graphAL)->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
             (*graphIM)->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
@@ -89,7 +91,9 @@ void generateGraph(GraphAL **graphAL, GraphIM **graphIM, int v, float density, b
             (*graphAL)->addDirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
             (*graphIM)->addDirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
         }
+        currentEdges++;
     }
+    cout<<" Successfully filled graph with "<<v<<" vertices and "<<currentEdges<<" edges!"<<endl;
 }
 
 int askForStartingVertex(){
