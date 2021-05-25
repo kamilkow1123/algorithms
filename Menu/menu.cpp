@@ -1,5 +1,8 @@
 #include<iostream>
 #include<conio.h>
+#include<stdlib.h>
+#include<time.h>
+#include<windows.h>
 #include "../Dijkstra/dijkstra.cpp"
 #include "../Bellman-Ford/bellmanFord.cpp"
 #include "../Prim/prim.cpp"
@@ -32,6 +35,63 @@ void deleteGraphIM(GraphIM **graphIM){
     cout<<" Successfully deleted matrix!"<<endl;
 }
 
+void generateGraph(GraphAL **graphAL, GraphIM **graphIM, int v, float density, bool directed){
+    if((*graphAL)->getNumOfVertexes() != 0 || (*graphIM)->getNumOfVertexes() != 0){
+        deleteGraphAL(graphAL);
+        deleteGraphIM(graphIM);
+    }
+
+    int edges = (int)((float)(((density/100) * v * (v-1))/2));
+    (*graphAL)->addVertexes(v);
+    (*graphIM)->addVertexes(v);
+
+    int currentEdges = 0;
+    UnionFind set(v);
+    Edge edge;
+    srand(time(NULL));
+
+    for(int i = 0; i < v; i++){
+        set.makeSet(i);
+    }
+
+    while(!set.isOneSet()){ //creating connected graph
+        do{
+            edge.vertexStart = rand()%v;
+            edge.vertexEnd = rand()%v;
+        }while((edge.vertexStart == edge.vertexEnd) || (set.findSet(edge.vertexStart) == set.findSet(edge.vertexEnd)));
+        
+        edge.weight = rand()%edges;
+        if(!directed){
+            (*graphAL)->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
+            (*graphIM)->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
+        }
+        else{
+            (*graphAL)->addDirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
+            (*graphIM)->addDirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
+        }
+        currentEdges++;
+        set.unionSets(edge);
+    }
+    //now we have a connected graph and need to add remaining edges
+
+    for(int i = 0; i < edges - currentEdges; i++){
+        do{
+            edge.vertexStart = rand()%v;
+            edge.vertexEnd = rand()%v;
+        }while((edge.vertexStart == edge.vertexEnd) || (*graphIM)->checkIfEdgeExists(edge.vertexStart, edge.vertexEnd));
+
+        edge.weight = rand()%edges;
+        if(!directed){
+            (*graphAL)->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
+            (*graphIM)->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
+        }
+        else{
+            (*graphAL)->addDirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
+            (*graphIM)->addDirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
+        }
+    }
+}
+
 int askForStartingVertex(){
     if(graphAL->getNumOfVertexes() == 0){
         return -1;
@@ -61,7 +121,8 @@ void testMenu(){
         cout<<" [8] Delete graph"<<endl;
         cout<<" [9] Exit"<<endl;
         cout<<" Enter your choice: ";
-        int choice, direction, src;
+        int choice, direction, src, vertexes;
+        float density;
         cin>>choice;
 
         switch(choice){
@@ -80,11 +141,22 @@ void testMenu(){
                 graphIM->fillGraphFromFile(direction); // false - undirected graph, true - directed
                 break;
             case 2: 
-                if(graphAL->getNumOfVertexes() != 0){
-                    cout<<" Graph is not empty!"<<endl;
-                    break;
-                }
-                
+                do{
+                    cout<<" Enter number of vertices: ";
+                    cin>>vertexes;
+                }while(vertexes <= 0 || vertexes > 1000);
+
+                do{
+                    cout<<" Enter density [%]: ";
+                    cin>>density;
+                }while(density < 0 || density > 100);
+
+                do{
+                    cout<<" Undirected [0] or directed [1] graph? ";
+                    cin>>direction;
+                }while(direction != 0 && direction != 1);
+
+                generateGraph(&graphAL, &graphIM, vertexes, density, direction);
                 break;
             case 3: 
                 graphAL->printGraph();

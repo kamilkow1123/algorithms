@@ -93,6 +93,14 @@ int GraphIM::getEndingVertexOfUndirectedEdge(int j, int currentVertex){
     return -1;
 }
 
+bool GraphIM::checkIfEdgeExists(int v1, int v2){
+    for(int i = 0; i < this->numOfEdges; i++){
+        if(graph[v1][i] > 0 && graph[v2][i] != 0)
+            return true;
+    }
+    return false;
+}
+
 void GraphIM::addVertexes(int vertexes){
     this->graph = new int *[vertexes];
     this->numOfVertexes = vertexes;

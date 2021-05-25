@@ -2,6 +2,7 @@
 
 UnionFind::UnionFind(int n){
     set = new UnionNode[n];
+    this->numOfVer = n;
 }
 
 UnionFind::~UnionFind(){
@@ -37,4 +38,13 @@ void UnionFind::unionSets(Edge edge){
             }
         }
     }
+}
+
+bool UnionFind::isOneSet(){
+    int firstParent = set[0].up;
+    
+    for(int i = 1; i < this->numOfVer; i++){
+        if(firstParent != set[i].up) return false;
+    }
+    return true;
 }

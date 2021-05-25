@@ -23,6 +23,7 @@ public:
     void addDirectedEdge(int, int, int);
     void addUndirectedEdge(int, int, int);
     void addVertexes(int);
+    bool checkIfEdgeExists(int, int);
 };
 
 #endif
