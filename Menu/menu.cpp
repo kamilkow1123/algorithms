@@ -63,7 +63,7 @@ void testMenu(){
                 do{
                     cout<<" Enter number of vertices: ";
                     cin>>vertexes;
-                }while(vertexes <= 0 || vertexes > 1000);
+                }while(vertexes <= 2 || vertexes > 1000);
 
                 do{
                     cout<<" Enter density [%]: ";

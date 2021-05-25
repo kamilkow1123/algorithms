@@ -29,6 +29,7 @@ void generateGraph(GraphAL **graphAL, GraphIM **graphIM, int v, float density, b
     if((*graphAL)->getNumOfVertexes() != 0 || (*graphIM)->getNumOfVertexes() != 0){
         deleteGraphAL(graphAL);
         deleteGraphIM(graphIM);
+        cout<<" Successfully deleted graphs!"<<endl;
     }
 
     int edges = (int)((float)(((density/100) * v * (v-1))/2));
