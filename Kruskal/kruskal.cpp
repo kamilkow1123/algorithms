@@ -4,13 +4,13 @@
 #include "../UnionFind/unionFind.cpp"
 using namespace std;
 
-void kruskalAL(GraphAL *graph){
+void kruskalAL(GraphAL *graph, bool printResult){
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
     if(vertexes == 0){
         cout<<" Graph is empty!"<<endl;
         return;
     }
-    int edges = graph->getNumOfEdges(); // number of edges  
+    int edges = graph->getNumOfEdges(); // number of edges
     Edge edge;
 
     UnionFind set(vertexes);
@@ -30,7 +30,7 @@ void kruskalAL(GraphAL *graph){
             queue->push(edge);
         }
     }
-    
+
     for(int i = 0; i < vertexes - 1; i++){
         do{
             edge = queue->front();
@@ -40,17 +40,22 @@ void kruskalAL(GraphAL *graph){
         mst->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
         set.unionSets(edge);
     }
-    cout<<endl<<" MST from Kruskal's algorithm in adjacency list:"<<endl;
-    mst->printGraph();
+
+    if(printResult){
+        cout<<endl<<" MST from Kruskal's algorithm in adjacency list:"<<endl;
+        mst->printGraph();
+    }
+
+    delete queue;
 }
 
-void kruskalIM(GraphIM *graph){
+void kruskalIM(GraphIM *graph, bool printResult){
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
     if(vertexes == 0){
         cout<<" Graph is empty!"<<endl;
         return;
     }
-    int edges = graph->getNumOfEdges(); // number of edges  
+    int edges = graph->getNumOfEdges(); // number of edges
     Edge edge;
 
     UnionFind set(vertexes);
@@ -72,7 +77,7 @@ void kruskalIM(GraphIM *graph){
             }
         }
     }
-    
+
     for(int i = 0; i < vertexes - 1; i++){
         do{
             edge = queue->front();
@@ -83,6 +88,11 @@ void kruskalIM(GraphIM *graph){
         mst->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
         set.unionSets(edge);
     }
-    cout<<endl<<" MST from Kruskal's algorithm in incidence matrix:"<<endl;
-    mst->printGraph();
+
+    if(printResult){
+        cout<<endl<<" MST from Kruskal's algorithm in incidence matrix:"<<endl;
+        mst->printGraph();
+    }
+
+    delete queue;
 }

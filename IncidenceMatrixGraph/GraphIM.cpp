@@ -34,7 +34,7 @@ void GraphIM::printGraph(){
 
     for(int i = 0; i<numOfVertexes; i++){
         cout<<" "<<i<<" |";
-        for(int j = 0; j<numOfEdges; j++){ // change to numOfVertexes for adjacency matrix
+        for(int j = 0; j<numOfEdges; j++){
             cout<<setw(5)<<graph[i][j];
         }
         cout<<endl;
@@ -74,7 +74,7 @@ int GraphIM::getStartingVertexOfEdge(int j){
 
 int GraphIM::getEndingVertexOfEdge(int j){
     if(j > numOfEdges - 1) return -1;
-    
+
     for(int i = 0; i<numOfVertexes; i++){
         if(graph[i][j] < 0)
             return i;
@@ -84,7 +84,7 @@ int GraphIM::getEndingVertexOfEdge(int j){
 
 int GraphIM::getEndingVertexOfUndirectedEdge(int j, int currentVertex){
     if(j > numOfEdges - 1) return -1;
-    
+
     for(int i = 0; i<numOfVertexes; i++){
         if(i == currentVertex) continue;
         if(graph[i][j] > 0)
@@ -114,8 +114,8 @@ void GraphIM::addUndirectedEdge(int ver1, int ver2, int dist){
         graph[i] = (int*) realloc(graph[i], (this->numOfEdges + 1)*sizeof(int));
         graph[i][this->numOfEdges] = 0;
     }
-    
-    graph[ver1][this->numOfEdges] = dist; 
+
+    graph[ver1][this->numOfEdges] = dist;
     graph[ver2][this->numOfEdges] = dist;
     this->weight += dist;
     this->numOfEdges += 1;
@@ -127,7 +127,7 @@ void GraphIM::addDirectedEdge(int ver1, int ver2, int dist){
         graph[i][this->numOfEdges] = 0;                                             // filling the column with zeros
     }
 
-    graph[ver1][this->numOfEdges] = dist; 
+    graph[ver1][this->numOfEdges] = dist;
     graph[ver2][this->numOfEdges] = -1*dist;
     this->weight += dist;
     this->numOfEdges += 1;
@@ -164,17 +164,3 @@ void GraphIM::fillGraphFromFile(bool directed){
         cout<<" Cannot open graph.txt"<<endl;
     }
 }
-
-// int main(){
-//     GraphIM *graph = new GraphIM();
-
-//     graph->fillGraphFromFile();
-//     graph->printGraph();
-
-//     dijkstra(graph, 0);
-//     bellman_ford(graph, 0);
-
-//     delete graph;
-
-//     return 0;
-// }

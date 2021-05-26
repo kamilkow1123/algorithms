@@ -113,8 +113,8 @@ void testMenu(){
                     cout<<" Graph is empty!"<<endl;
                     break;
                 }
-                kruskalAL(graphAL);
-                kruskalIM(graphIM);
+                kruskalAL(graphAL, true);
+                kruskalIM(graphIM, true);
                 break;
             case 8:
                 if(graphAL->getNumOfVertexes() == 0){

@@ -52,6 +52,7 @@ void primAL(GraphAL *graph, int src, bool printResult){
         mst->printGraph();
     }
 
+    delete q;
     delete [] visited;
 }
 
@@ -103,5 +104,6 @@ void primIM(GraphIM *graph, int src, bool printResult){
         mst->printGraph();
     }
 
+    delete q;
     delete [] visited;
 }

@@ -116,7 +116,7 @@ void GraphAL::fillGraphFromFile(bool directed){
 
         for(int i = 0; i<numberOfEdges; i++){
             in>>vertexStart>>vertexEnd>>distanceValue;
-            
+
             if(directed) this->addDirectedEdge(vertexStart, vertexEnd, distanceValue);
             else this->addUndirectedEdge(vertexStart, vertexEnd, distanceValue);
         }
@@ -127,15 +127,3 @@ void GraphAL::fillGraphFromFile(bool directed){
         cout<<" Cannot open graph.txt"<<endl;
     }
 }
-
-// int main(){
-//     GraphAL *graph = new GraphAL();
-
-//     graph->fillGraphFromFile();
-//     graph->printGraph();
-
-//     dijkstra(graph, 0);
-//     bellman_ford(graph, 0);
-
-//     return 0;
-// }
