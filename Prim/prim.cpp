@@ -10,12 +10,12 @@ void primAL(GraphAL *graph, int src){
         cout<<" Graph is empty!"<<endl;
         return;
     }
-    int edges = graph->getNumOfEdges(); // number of edges                      
+    int edges = graph->getNumOfEdges(); // number of edges
 	bool *visited = new bool[vertexes]; // boolean array to mark visted/unvisted for each vertex
     GraphAL *mst = new GraphAL();
     mst->addVertexes(vertexes);
 	
-	// set the vertexes with infinity distance and mark them unvisited 
+	// set the vertexes with infinity distance and mark them unvisited
 	for(int i = 0; i < vertexes; i++)
 	{
 		visited[i] = false;
@@ -24,7 +24,7 @@ void primAL(GraphAL *graph, int src){
     visited[src] = true;
     int v = 0;
     Edge e;
-    Queue *q = new Queue(edges); 
+    Queue *q = new Queue(edges);
 
     for(int i = 0; i < vertexes - 1; i++){
         for(Node *ver = graph->getList(v); ver; ver = ver->next){

@@ -45,7 +45,7 @@ void testMenu(){
         cin>>choice;
 
         switch(choice){
-            case 1: 
+            case 1:
                 if(graphAL->getNumOfVertexes() != 0){
                     cout<<" Graph is not empty!"<<endl;
                     break;
@@ -55,11 +55,11 @@ void testMenu(){
                     cout<<" Undirected [0] or directed [1] graph? ";
                     cin>>direction;
                 }while(direction != 0 && direction != 1);
-                
+
                 graphAL->fillGraphFromFile(direction); // false - undirected graph, true - directed
                 graphIM->fillGraphFromFile(direction); // false - undirected graph, true - directed
                 break;
-            case 2: 
+            case 2:
                 do{
                     cout<<" Enter number of vertices: ";
                     cin>>vertexes;
@@ -75,31 +75,31 @@ void testMenu(){
                     cin>>direction;
                 }while(direction != 0 && direction != 1);
 
-                generateGraph(&graphAL, &graphIM, vertexes, density, direction);
+                generateGraph(&graphAL, &graphIM, vertexes, density, direction, true);
                 break;
-            case 3: 
+            case 3:
                 graphAL->printGraph();
                 graphIM->printGraph();
                 break;
-            case 4: 
+            case 4:
                 src = askForStartingVertex();
                 if(src == -1){
                     cout<<" Graph is empty!"<<endl;
                     break;
                 }
-                dijkstraAL(graphAL, src);
-                dijkstraIM(graphIM, src);
+                dijkstraAL(graphAL, src, true);
+                dijkstraIM(graphIM, src, true);
                 break;
-            case 5: 
+            case 5:
                 src = askForStartingVertex();
                 if(src == -1){
                     cout<<" Graph is empty!"<<endl;
                     break;
                 }
-                bellmanFordAL(graphAL, src);
-                bellmanFordIM(graphIM, src);
+                bellmanFordAL(graphAL, src, true);
+                bellmanFordIM(graphIM, src, true);
                 break;
-            case 6: 
+            case 6:
                 src = askForStartingVertex();
                 if(src == -1){
                     cout<<" Graph is empty!"<<endl;
@@ -108,7 +108,7 @@ void testMenu(){
                 primAL(graphAL, src);
                 primIM(graphIM, src);
                 break;
-            case 7: 
+            case 7:
                 if(graphAL->getNumOfVertexes() == 0){
                     cout<<" Graph is empty!"<<endl;
                     break;
@@ -116,13 +116,13 @@ void testMenu(){
                 kruskalAL(graphAL);
                 kruskalIM(graphIM);
                 break;
-            case 8: 
+            case 8:
                 if(graphAL->getNumOfVertexes() == 0){
                     cout<<" Graph is empty!"<<endl;
                     break;
                 }
-                deleteGraphAL(&graphAL);
-                deleteGraphIM(&graphIM);
+                deleteGraphAL(&graphAL, true);
+                deleteGraphIM(&graphIM, true);
                 break;
             case 9:
                 return;
@@ -137,37 +137,41 @@ void testMenu(){
 }
 
 void experimentMenu(){
-    system("cls");
-    cout<<" ___________EXPERIMENT___________"<<endl;
-    cout<<" [1] Dijkstra"<<endl;
-    cout<<" [2] Bellman-Ford"<<endl;
-    cout<<" [3] Prim"<<endl;
-    cout<<" [4] Kruskal"<<endl;
-    cout<<" [5] Exit"<<endl;
-    cout<<" Enter your choice: ";
-    int choice;
-    cin>>choice;
+    do{
+        system("cls");
+        cout<<" ___________EXPERIMENT___________"<<endl;
+        cout<<" [1] Dijkstra"<<endl;
+        cout<<" [2] Bellman-Ford"<<endl;
+        cout<<" [3] Prim"<<endl;
+        cout<<" [4] Kruskal"<<endl;
+        cout<<" [5] Exit"<<endl;
+        cout<<" Enter your choice: ";
+        int choice;
+        cin>>choice;
 
-    switch(choice){
-        case 1: 
-            dijkstraExperiment(&graphAL, &graphIM);
-            break;
-        case 2: 
-            bellmanFordExperiment(&graphAL, &graphIM);
-            break;
-        case 3: 
-            primExperiment(&graphAL, &graphIM);
-            break;
-        case 4: 
-            kruskalExperiment(&graphAL, &graphIM);
-            break;
-        case 5:
-            return;
-            break;
-        default:
-            cout<<endl<<" Wrong choice"<<endl;
-            break;
-    }
+        switch(choice){
+            case 1:
+                dijkstraExperiment(&graphAL, &graphIM);
+                break;
+            case 2:
+                bellmanFordExperiment(&graphAL, &graphIM);
+                break;
+            case 3:
+                primExperiment(&graphAL, &graphIM);
+                break;
+            case 4:
+                kruskalExperiment(&graphAL, &graphIM);
+                break;
+            case 5:
+                return;
+                break;
+            default:
+                cout<<endl<<" Wrong choice"<<endl;
+                break;
+        }
+        cout<<" Press any key to continue ";
+        getch();
+    }while(true);
 }
 
 void startingMenu(){
@@ -180,13 +184,13 @@ void startingMenu(){
     cin>>choice;
 
     switch(choice){
-        case 1: 
+        case 1:
             testMenu();
             break;
-        case 2: 
+        case 2:
             experimentMenu();
             break;
-        case 3: 
+        case 3:
             return;
             break;
         default:

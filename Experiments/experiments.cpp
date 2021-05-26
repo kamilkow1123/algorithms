@@ -4,7 +4,7 @@
 #include "../Kruskal/kruskal.cpp"
 #include "../Timer/timer.cpp"
 
-void deleteGraphAL(GraphAL **graphAL){
+void deleteGraphAL(GraphAL **graphAL, bool shouldPrint){
     if((*graphAL)->getNumOfVertexes() == 0){
         cout<<" Graph is empty!"<<endl;
         return;
@@ -12,10 +12,10 @@ void deleteGraphAL(GraphAL **graphAL){
 
     delete *graphAL;
     *graphAL = new GraphAL();
-    cout<<" Successfully deleted list!"<<endl;
+    if(shouldPrint) cout<<" Successfully deleted list!"<<endl;
 }
 
-void deleteGraphIM(GraphIM **graphIM){
+void deleteGraphIM(GraphIM **graphIM, bool shouldPrint){
     if((*graphIM)->getNumOfVertexes() == 0){
         cout<<" Graph is empty!"<<endl;
         return;
@@ -23,14 +23,14 @@ void deleteGraphIM(GraphIM **graphIM){
 
     delete *graphIM;
     *graphIM = new GraphIM();
-    cout<<" Successfully deleted matrix!"<<endl;
+    if(shouldPrint) cout<<" Successfully deleted matrix!"<<endl;
 }
 
-void generateGraph(GraphAL **graphAL, GraphIM **graphIM, int v, float density, bool directed){
+void generateGraph(GraphAL **graphAL, GraphIM **graphIM, int v, float density, bool directed, bool shouldPrint){
     if((*graphAL)->getNumOfVertexes() != 0 || (*graphIM)->getNumOfVertexes() != 0){
-        deleteGraphAL(graphAL);
-        deleteGraphIM(graphIM);
-        cout<<" Successfully deleted graphs!"<<endl;
+        deleteGraphAL(graphAL, shouldPrint);
+        deleteGraphIM(graphIM, shouldPrint);
+        if(shouldPrint) cout<<" Successfully deleted graphs!"<<endl;
     }
 
     int edges = (int)((float)(((density/100) * v * (v-1))/2));
@@ -53,7 +53,7 @@ void generateGraph(GraphAL **graphAL, GraphIM **graphIM, int v, float density, b
             edge.vertexStart = rand()%v;
             edge.vertexEnd = rand()%v;
         }while((edge.vertexStart == edge.vertexEnd) || (set.findSet(edge.vertexStart) == set.findSet(edge.vertexEnd)));
-        
+
         edge.weight = (rand()%(2*edges)) + 1;
 
         if(!directed){
@@ -85,7 +85,7 @@ void generateGraph(GraphAL **graphAL, GraphIM **graphIM, int v, float density, b
         }
         currentEdges++;
     }
-    cout<<" Successfully filled graph with "<<v<<" vertices and "<<currentEdges<<" edges!"<<endl;
+    if(shouldPrint) cout<<" Successfully filled graph with "<<v<<" vertices and "<<currentEdges<<" edges!"<<endl;
 }
 
 void dijkstraExperiment(GraphAL **graphAL, GraphIM **graphIM){
@@ -94,37 +94,76 @@ void dijkstraExperiment(GraphAL **graphAL, GraphIM **graphIM){
     int numberOfVer, density, numberOfMeasurements;
 
     do{
-        cout<<"Enter the number of vertices: ";
+        cout<<" Enter the number of vertices: ";
         cin>>numberOfVer;
     }while(numberOfVer<0 || numberOfVer>1000);
 
     do{
-        cout<<"Enter the density [%]: ";
+        cout<<" Enter the density [%]: ";
         cin>>density;
     }while(density<0 || density>100);
 
     do{
-        cout<<"Enter the number of measurements: ";
+        cout<<" Enter the number of measurements: ";
         cin>>numberOfMeasurements;
     }while(numberOfMeasurements<0 || numberOfMeasurements>500);
 
     timeAL = 0;
+    timeIM = 0;
     for(int i = 0; i<numberOfMeasurements; i++){
-        generateGraph(graphAL, graphIM, numberOfVer, density, true);
+        generateGraph(graphAL, graphIM, numberOfVer, density, true, false);
         Timer timerAL;
-        dijkstraAL(*graphAL, 0);
-        timeAL += timerAL.getTime().count() * 1000.0f;
+        dijkstraAL(*graphAL, 0, false);
+        timeAL += timerAL.getTime().count() * 1000000.0f;
 
         Timer timerIM;
-        dijkstraIM(*graphIM, 0); 
-        timeIM += timerIM.getTime().count() * 1000.0f;
+        dijkstraIM(*graphIM, 0, false);
+        timeIM += timerIM.getTime().count() * 1000000.0f;
     }
-    cout<<"Dijkstra algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<"ms"<<endl;
-    cout<<"Dijkstra algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<"ms"<<endl;
+    cout<<" Dijkstra's algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<" mikro sekund"<<endl;
+    cout<<" Dijkstra's algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<" mikro sekund"<<endl;
+
+    deleteGraphAL(graphAL, false);
+    deleteGraphIM(graphIM, false);
 }
 
 void bellmanFordExperiment(GraphAL **graphAL, GraphIM **graphIM){
-    cout<<" Bellman-Ford experiment"<<endl;
+    srand(time(NULL));
+    float timeAL, timeIM;
+    int numberOfVer, density, numberOfMeasurements;
+
+    do{
+        cout<<" Enter the number of vertices: ";
+        cin>>numberOfVer;
+    }while(numberOfVer<0 || numberOfVer>1000);
+
+    do{
+        cout<<" Enter the density [%]: ";
+        cin>>density;
+    }while(density<0 || density>100);
+
+    do{
+        cout<<" Enter the number of measurements: ";
+        cin>>numberOfMeasurements;
+    }while(numberOfMeasurements<0 || numberOfMeasurements>500);
+
+    timeAL = 0;
+    timeIM = 0;
+    for(int i = 0; i<numberOfMeasurements; i++){
+        generateGraph(graphAL, graphIM, numberOfVer, density, true, false);
+        Timer timerAL;
+        bellmanFordAL(*graphAL, 0, false);
+        timeAL += timerAL.getTime().count() * 1000000.0f;
+
+        Timer timerIM;
+        bellmanFordIM(*graphIM, 0, false);
+        timeIM += timerIM.getTime().count() * 1000000.0f;
+    }
+    cout<<" Bellman-Ford algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<" mikro sekund"<<endl;
+    cout<<" Bellman-Ford algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<" mikro sekund"<<endl;
+
+    deleteGraphAL(graphAL, false);
+    deleteGraphIM(graphIM, false);
 }
 
 void primExperiment(GraphAL **graphAL, GraphIM **graphIM){

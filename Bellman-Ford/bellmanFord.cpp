@@ -4,7 +4,7 @@
 #include "../IncidenceMatrixGraph/graphIM.h"
 using namespace std;
 
-void bellmanFordAL(GraphAL *graph, int src){
+void bellmanFordAL(GraphAL *graph, int src, bool printResult){
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
     if(vertexes == 0){
         cout<<" Graph is empty!"<<endl;
@@ -49,19 +49,21 @@ void bellmanFordAL(GraphAL *graph, int src){
         }
     }
 
-    cout<<endl<<" Results of the Bellman-Ford algorithm for adjacency list: "<<endl;
-	cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
-	for(int i = 0; i < vertexes; i++) //printing             
-	{ 
-		cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
-	}
-    cout<<endl;
+    if(printResult){
+        cout<<endl<<" Results of the Bellman-Ford algorithm for adjacency list: "<<endl;
+        cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
+        for(int i = 0; i < vertexes; i++) //printing             
+        { 
+            cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
+        }
+        cout<<endl;
+    }
 
     delete [] distance;
     delete [] previous;
 }
 
-void bellmanFordIM(GraphIM *graph, int src){
+void bellmanFordIM(GraphIM *graph, int src, bool printResult){
     int vertexes = graph->getNumOfVertexes(); // number of vertexes
     if(vertexes == 0){
         cout<<" Graph is empty!"<<endl;
@@ -103,13 +105,15 @@ void bellmanFordIM(GraphIM *graph, int src){
         }
     }
 
-    cout<<endl<<" Results of the Bellman-Ford algorithm for incidence matrix: "<<endl;
-	cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
-	for(int i = 0; i < vertexes; i++) //printing             
-	{ 
-		cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
-	}
-    cout<<endl;
+    if(printResult){
+        cout<<endl<<" Results of the Bellman-Ford algorithm for incidence matrix: "<<endl;
+        cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
+        for(int i = 0; i < vertexes; i++) //printing             
+        { 
+            cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
+        }
+        cout<<endl;
+    }
 
     delete [] distance;
     delete [] previous;
