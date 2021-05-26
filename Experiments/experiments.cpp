@@ -2,6 +2,7 @@
 #include "../Bellman-Ford/bellmanFord.cpp"
 #include "../Prim/prim.cpp"
 #include "../Kruskal/kruskal.cpp"
+#include "../Timer/timer.cpp"
 
 void deleteGraphAL(GraphAL **graphAL){
     if((*graphAL)->getNumOfVertexes() == 0){
@@ -85,4 +86,20 @@ void generateGraph(GraphAL **graphAL, GraphIM **graphIM, int v, float density, b
         currentEdges++;
     }
     cout<<" Successfully filled graph with "<<v<<" vertices and "<<currentEdges<<" edges!"<<endl;
+}
+
+void dijkstraExperiment(GraphAL **graphAL, GraphIM **graphIM){
+    cout<<" Dijkstra experiment"<<endl;
+}
+
+void bellmanFordExperiment(GraphAL **graphAL, GraphIM **graphIM){
+    cout<<" Bellman-Ford experiment"<<endl;
+}
+
+void primExperiment(GraphAL **graphAL, GraphIM **graphIM){
+    cout<<" Prim experiment"<<endl;
+}
+
+void kruskalExperiment(GraphAL **graphAL, GraphIM **graphIM){
+    cout<<" Kruskal experiment"<<endl;
 }

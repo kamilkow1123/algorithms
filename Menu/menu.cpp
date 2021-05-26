@@ -136,6 +136,40 @@ void testMenu(){
     }while(true);
 }
 
+void experimentMenu(){
+    system("cls");
+    cout<<" ___________EXPERIMENT___________"<<endl;
+    cout<<" [1] Dijkstra"<<endl;
+    cout<<" [2] Bellman-Ford"<<endl;
+    cout<<" [3] Prim"<<endl;
+    cout<<" [4] Kruskal"<<endl;
+    cout<<" [5] Exit"<<endl;
+    cout<<" Enter your choice: ";
+    int choice;
+    cin>>choice;
+
+    switch(choice){
+        case 1: 
+            dijkstraExperiment(&graphAL, &graphIM);
+            break;
+        case 2: 
+            bellmanFordExperiment(&graphAL, &graphIM);
+            break;
+        case 3: 
+            primExperiment(&graphAL, &graphIM);
+            break;
+        case 4: 
+            kruskalExperiment(&graphAL, &graphIM);
+            break;
+        case 5:
+            return;
+            break;
+        default:
+            cout<<endl<<" Wrong choice"<<endl;
+            break;
+    }
+}
+
 void startingMenu(){
     cout<<" ___________MENU___________"<<endl;
     cout<<" [1] Test the algorithms"<<endl;
@@ -150,7 +184,7 @@ void startingMenu(){
             testMenu();
             break;
         case 2: 
-            // experimentMenu();
+            experimentMenu();
             break;
         case 3: 
             return;
