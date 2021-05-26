@@ -105,8 +105,8 @@ void testMenu(){
                     cout<<" Graph is empty!"<<endl;
                     break;
                 }
-                primAL(graphAL, src);
-                primIM(graphIM, src);
+                primAL(graphAL, src, true);
+                primIM(graphIM, src, true);
                 break;
             case 7:
                 if(graphAL->getNumOfVertexes() == 0){
