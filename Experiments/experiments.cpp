@@ -89,7 +89,38 @@ void generateGraph(GraphAL **graphAL, GraphIM **graphIM, int v, float density, b
 }
 
 void dijkstraExperiment(GraphAL **graphAL, GraphIM **graphIM){
-    cout<<" Dijkstra experiment"<<endl;
+    srand(time(NULL));
+    float timeAL, timeIM;
+    int numberOfVer, density, numberOfMeasurements;
+
+    do{
+        cout<<"Enter the number of vertices: ";
+        cin>>numberOfVer;
+    }while(numberOfVer<0 || numberOfVer>1000);
+
+    do{
+        cout<<"Enter the density [%]: ";
+        cin>>density;
+    }while(density<0 || density>100);
+
+    do{
+        cout<<"Enter the number of measurements: ";
+        cin>>numberOfMeasurements;
+    }while(numberOfMeasurements<0 || numberOfMeasurements>500);
+
+    timeAL = 0;
+    for(int i = 0; i<numberOfMeasurements; i++){
+        generateGraph(graphAL, graphIM, numberOfVer, density, true);
+        Timer timerAL;
+        dijkstraAL(*graphAL, 0);
+        timeAL += timerAL.getTime().count() * 1000.0f;
+
+        Timer timerIM;
+        dijkstraIM(*graphIM, 0); 
+        timeIM += timerIM.getTime().count() * 1000.0f;
+    }
+    cout<<"Dijkstra algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<"ms"<<endl;
+    cout<<"Dijkstra algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<"ms"<<endl;
 }
 
 void bellmanFordExperiment(GraphAL **graphAL, GraphIM **graphIM){
