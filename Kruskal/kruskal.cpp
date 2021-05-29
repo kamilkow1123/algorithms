@@ -5,18 +5,18 @@
 using namespace std;
 
 void kruskalAL(GraphAL *graph, bool printResult){
-    int vertexes = graph->getNumOfVertexes(); // number of vertexes
-    if(vertexes == 0){
+    int vertexes = graph->getNumOfVertexes(); //number of vertexes
+    if(vertexes == 0){ //if the graph is empty, print that and return
         cout<<" Graph is empty!"<<endl;
         return;
     }
-    int edges = graph->getNumOfEdges(); // number of edges
+    int edges = graph->getNumOfEdges(); //number of edges
     Edge edge;
 
     UnionFind set(vertexes);
     Queue *queue = new Queue(2*edges);
-    GraphAL *mst = new GraphAL();
-    mst->addVertexes(vertexes);
+    GraphAL *mst = new GraphAL(); //minimum spanning tree
+    mst->addVertexes(vertexes); //initialize graph with vertices and no edges yet
 
     for(int i = 0; i < vertexes; i++){
         set.makeSet(i);
@@ -27,7 +27,7 @@ void kruskalAL(GraphAL *graph, bool printResult){
             edge.vertexStart = i;
             edge.vertexEnd = ver->vertex;
             edge.weight = ver->edge;
-            queue->push(edge);
+            queue->push(edge); //add the edge to the queue
         }
     }
 
@@ -38,7 +38,7 @@ void kruskalAL(GraphAL *graph, bool printResult){
         } while(set.findSet(edge.vertexStart) == set.findSet(edge.vertexEnd));
 
         mst->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
-        set.unionSets(edge);
+        set.unionSets(edge); //union sets connected by the edge
     }
 
     if(printResult){
@@ -50,18 +50,18 @@ void kruskalAL(GraphAL *graph, bool printResult){
 }
 
 void kruskalIM(GraphIM *graph, bool printResult){
-    int vertexes = graph->getNumOfVertexes(); // number of vertexes
-    if(vertexes == 0){
+    int vertexes = graph->getNumOfVertexes(); //number of vertexes
+    if(vertexes == 0){ //if the graph is empty, print that and return
         cout<<" Graph is empty!"<<endl;
         return;
     }
-    int edges = graph->getNumOfEdges(); // number of edges
+    int edges = graph->getNumOfEdges(); //number of edges
     Edge edge;
 
     UnionFind set(vertexes);
     Queue *queue = new Queue(2*edges);
-    GraphIM *mst = new GraphIM();
-    mst->addVertexes(vertexes);
+    GraphIM *mst = new GraphIM(); //minimum spanning tree
+    mst->addVertexes(vertexes); //initialize graph with vertices and no edges yet
 
     for(int i = 0; i < vertexes; i++){
         set.makeSet(i);
@@ -73,7 +73,7 @@ void kruskalIM(GraphIM *graph, bool printResult){
                 edge.vertexStart = i;
                 edge.vertexEnd = graph->getEndingVertexOfUndirectedEdge(j,i);
                 edge.weight = graph->findElement(i, j);
-                queue->push(edge);
+                queue->push(edge); //add the edge to the queue
             }
         }
     }
@@ -84,9 +84,8 @@ void kruskalIM(GraphIM *graph, bool printResult){
             queue->pop();
         } while(set.findSet(edge.vertexStart) == set.findSet(edge.vertexEnd));
 
-        // cout<<edge.vertexStart<<" "<<edge.vertexEnd<<" "<<edge.weight<<endl;
         mst->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
-        set.unionSets(edge);
+        set.unionSets(edge); //union sets connected by the edge
     }
 
     if(printResult){

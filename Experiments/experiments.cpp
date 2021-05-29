@@ -7,8 +7,8 @@
 float unitFactor = 1000000000.0f; //nanoseconds
 string unit = "ns";
 
-void deleteGraphAL(GraphAL **graphAL, bool shouldPrint){
-    if((*graphAL)->getNumOfVertexes() == 0){
+void deleteGraphAL(GraphAL **graphAL, bool shouldPrint){ //delete the graph in the adjacency list
+    if((*graphAL)->getNumOfVertexes() == 0){ //if the graph is empty, print that and return
         cout<<" Graph is empty!"<<endl;
         return;
     }
@@ -18,8 +18,8 @@ void deleteGraphAL(GraphAL **graphAL, bool shouldPrint){
     if(shouldPrint) cout<<" Successfully deleted list!"<<endl;
 }
 
-void deleteGraphIM(GraphIM **graphIM, bool shouldPrint){
-    if((*graphIM)->getNumOfVertexes() == 0){
+void deleteGraphIM(GraphIM **graphIM, bool shouldPrint){ //delete the graph in the incidence matrix
+    if((*graphIM)->getNumOfVertexes() == 0){ //if the graph is empty, print that and return
         cout<<" Graph is empty!"<<endl;
         return;
     }
@@ -30,19 +30,19 @@ void deleteGraphIM(GraphIM **graphIM, bool shouldPrint){
 }
 
 void generateGraph(GraphAL **graphAL, GraphIM **graphIM, int v, float density, bool directed, bool shouldPrint){
-    if((*graphAL)->getNumOfVertexes() != 0 || (*graphIM)->getNumOfVertexes() != 0){
+    if((*graphAL)->getNumOfVertexes() != 0 || (*graphIM)->getNumOfVertexes() != 0){ //if the graph is not empty, delete its content
         deleteGraphAL(graphAL, shouldPrint);
         deleteGraphIM(graphIM, shouldPrint);
         if(shouldPrint) cout<<" Successfully deleted graphs!"<<endl;
     }
 
-    int edges = (int)((float)(((density/100) * v * (v-1))/2));
+    int edges = (int)((float)(((density/100) * v * (v-1))/2)); //calculate the number of edges from the given density and number of vertices
 
-    (*graphAL)->addVertexes(v);
-    (*graphIM)->addVertexes(v);
+    (*graphAL)->addVertexes(v); //initialize graph with vertices, no edges yet
+    (*graphIM)->addVertexes(v); //initialize graph with vertices, no edges yet
 
     int currentEdges = 0;
-    UnionFind set(v);
+    UnionFind set(v); //we will use union find to make sure that the graph is connected
     Edge edge;
     srand(time(NULL));
 
@@ -51,13 +51,12 @@ void generateGraph(GraphAL **graphAL, GraphIM **graphIM, int v, float density, b
     }
 
     while(!set.isOneSet()){ //creating connected graph
-        // set.printSet();
         do{
             edge.vertexStart = rand()%v;
             edge.vertexEnd = rand()%v;
-        }while((edge.vertexStart == edge.vertexEnd) || (set.findSet(edge.vertexStart) == set.findSet(edge.vertexEnd)));
+        }while((edge.vertexStart == edge.vertexEnd) || (set.findSet(edge.vertexStart) == set.findSet(edge.vertexEnd))); //draw new edge if the vertices are the same or if they are in the same set
 
-        edge.weight = (rand()%(2*edges)) + 1;
+        edge.weight = (rand()%(2*edges)) + 1; //draw the edge's weight from the range <1, number of edges * 2>
 
         if(!directed){
             (*graphAL)->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
@@ -75,9 +74,10 @@ void generateGraph(GraphAL **graphAL, GraphIM **graphIM, int v, float density, b
         do{
             edge.vertexStart = rand()%v;
             edge.vertexEnd = rand()%v;
-        }while((edge.vertexStart == edge.vertexEnd) || (*graphIM)->checkIfEdgeExists(edge.vertexStart, edge.vertexEnd));
+        }while((edge.vertexStart == edge.vertexEnd) || (*graphIM)->checkIfEdgeExists(edge.vertexStart, edge.vertexEnd)); //draw new edge if the vertices are the same or if the edge already exists
 
-        edge.weight = (rand()%(2*edges)) + 1;
+        edge.weight = (rand()%(2*edges)) + 1; //draw the edge's weight from the range <1, number of edges * 2>
+
         if(!directed){
             (*graphAL)->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
             (*graphIM)->addUndirectedEdge(edge.vertexStart, edge.vertexEnd, edge.weight);
@@ -99,35 +99,35 @@ void dijkstraExperiment(GraphAL **graphAL, GraphIM **graphIM){
     do{
         cout<<" Enter the number of vertices: ";
         cin>>numberOfVer;
-    }while(numberOfVer<0 || numberOfVer>1000);
+    }while(numberOfVer<0 || numberOfVer>1000); //ask for the input again if the value is not in the expected range
 
     do{
         cout<<" Enter the density [%]: ";
         cin>>density;
-    }while(density<0 || density>100);
+    }while(density<0 || density>100); //ask for the input again if the value is not in the expected range
 
     do{
         cout<<" Enter the number of measurements: ";
         cin>>numberOfMeasurements;
-    }while(numberOfMeasurements<0 || numberOfMeasurements>500);
+    }while(numberOfMeasurements<0 || numberOfMeasurements>500); //ask for the input again if the value is not in the expected range
 
     timeAL = 0;
     timeIM = 0;
     for(int i = 0; i<numberOfMeasurements; i++){
-        generateGraph(graphAL, graphIM, numberOfVer, density, true, false);
-        Timer timerAL;
-        dijkstraAL(*graphAL, 0, false);
-        timeAL += timerAL.getTime().count() * unitFactor;
+        generateGraph(graphAL, graphIM, numberOfVer, density, true, false); //generate random graph for each measurement
+        Timer timerAL; //set the timer for adjacency list
+        dijkstraAL(*graphAL, 0, false); //perform Dijkstra's algorithm on the generated graph in adjacency list
+        timeAL += timerAL.getTime().count() * unitFactor; //stop the timer and count the time
 
-        Timer timerIM;
-        dijkstraIM(*graphIM, 0, false);
-        timeIM += timerIM.getTime().count() * unitFactor;
+        Timer timerIM; //set the timer for incidence matrix
+        dijkstraIM(*graphIM, 0, false); //perform Dijkstra's algorithm on the generated graph in incidence matrix
+        timeIM += timerIM.getTime().count() * unitFactor; //stop the timer and count the time
     }
-    cout<<" Dijkstra's algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl;
-    cout<<" Dijkstra's algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<unit<<endl;
+    cout<<" Dijkstra's algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl; //count the average time for dijkstra in adjacency list
+    cout<<" Dijkstra's algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<unit<<endl; //count the average time for dijkstra in incidence matrix
 
-    deleteGraphAL(graphAL, false);
-    deleteGraphIM(graphIM, false);
+    deleteGraphAL(graphAL, false); //delete the graph in adjacency list
+    deleteGraphIM(graphIM, false); //delete the graph in incidence matrix
 }
 
 void bellmanFordExperiment(GraphAL **graphAL, GraphIM **graphIM){
@@ -138,35 +138,35 @@ void bellmanFordExperiment(GraphAL **graphAL, GraphIM **graphIM){
     do{
         cout<<" Enter the number of vertices: ";
         cin>>numberOfVer;
-    }while(numberOfVer<0 || numberOfVer>1000);
+    }while(numberOfVer<0 || numberOfVer>1000); //ask for the input again if the value is not in the expected range
 
     do{
         cout<<" Enter the density [%]: ";
         cin>>density;
-    }while(density<0 || density>100);
+    }while(density<0 || density>100); //ask for the input again if the value is not in the expected range
 
     do{
         cout<<" Enter the number of measurements: ";
         cin>>numberOfMeasurements;
-    }while(numberOfMeasurements<0 || numberOfMeasurements>500);
+    }while(numberOfMeasurements<0 || numberOfMeasurements>500); //ask for the input again if the value is not in the expected range
 
     timeAL = 0;
     timeIM = 0;
     for(int i = 0; i<numberOfMeasurements; i++){
-        generateGraph(graphAL, graphIM, numberOfVer, density, true, false);
-        Timer timerAL;
-        bellmanFordAL(*graphAL, 0, false);
-        timeAL += timerAL.getTime().count() * unitFactor;
+        generateGraph(graphAL, graphIM, numberOfVer, density, true, false); //generate random graph for each measurement
+        Timer timerAL; //set the timer for adjacency list
+        bellmanFordAL(*graphAL, 0, false); //perform Bellman-Ford algorithm on the generated graph in adjacency list
+        timeAL += timerAL.getTime().count() * unitFactor; //stop the timer and count the time
 
-        Timer timerIM;
-        bellmanFordIM(*graphIM, 0, false);
-        timeIM += timerIM.getTime().count() * unitFactor;
+        Timer timerIM; //set the timer for incidence matrix
+        bellmanFordIM(*graphIM, 0, false); //perform Bellman-Ford algorithm on the generated graph in incidence matrix
+        timeIM += timerIM.getTime().count() * unitFactor; //stop the timer and count the time
     }
-    cout<<" Bellman-Ford algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl;
-    cout<<" Bellman-Ford algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<unit<<endl;
+    cout<<" Bellman-Ford algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl; //count the average time for bellman-ford in adjacency list
+    cout<<" Bellman-Ford algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<unit<<endl; //count the average time for bellman-ford in incidence matrix
 
-    deleteGraphAL(graphAL, false);
-    deleteGraphIM(graphIM, false);
+    deleteGraphAL(graphAL, false); //delete the graph in adjacency list
+    deleteGraphIM(graphIM, false); //delete the graph in incidence matrix
 }
 
 void primExperiment(GraphAL **graphAL, GraphIM **graphIM){
@@ -177,35 +177,35 @@ void primExperiment(GraphAL **graphAL, GraphIM **graphIM){
     do{
         cout<<" Enter the number of vertices: ";
         cin>>numberOfVer;
-    }while(numberOfVer<0 || numberOfVer>1000);
+    }while(numberOfVer<0 || numberOfVer>1000); //ask for the input again if the value is not in the expected range
 
     do{
         cout<<" Enter the density [%]: ";
         cin>>density;
-    }while(density<0 || density>100);
+    }while(density<0 || density>100); //ask for the input again if the value is not in the expected range
 
     do{
         cout<<" Enter the number of measurements: ";
         cin>>numberOfMeasurements;
-    }while(numberOfMeasurements<0 || numberOfMeasurements>500);
+    }while(numberOfMeasurements<0 || numberOfMeasurements>500); //ask for the input again if the value is not in the expected range
 
     timeAL = 0;
     timeIM = 0;
     for(int i = 0; i<numberOfMeasurements; i++){
-        generateGraph(graphAL, graphIM, numberOfVer, density, false, false);
-        Timer timerAL;
-        primAL(*graphAL, 0, false);
-        timeAL += timerAL.getTime().count() * unitFactor;
+        generateGraph(graphAL, graphIM, numberOfVer, density, false, false); //generate random graph for each measurement
+        Timer timerAL; //set the timer for adjacency list
+        primAL(*graphAL, 0, false); //perform Prim's algorithm on the generated graph in adjacency list
+        timeAL += timerAL.getTime().count() * unitFactor; //stop the timer and count the time
 
-        Timer timerIM;
-        primIM(*graphIM, 0, false);
-        timeIM += timerIM.getTime().count() * unitFactor;
+        Timer timerIM; //set the timer for incidence matrix
+        primIM(*graphIM, 0, false); //perform Prim's algorithm on the generated graph in incidence matrix
+        timeIM += timerIM.getTime().count() * unitFactor; //stop the timer and count the time
     }
-    cout<<" Prim's algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl;
-    cout<<" Prim's algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<unit<<endl;
+    cout<<" Prim's algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl; //count the average time for prim in adjacency list
+    cout<<" Prim's algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<unit<<endl; //count the average time for prim in incidence matrix
 
-    deleteGraphAL(graphAL, false);
-    deleteGraphIM(graphIM, false);
+    deleteGraphAL(graphAL, false); //delete the graph in adjacency list
+    deleteGraphIM(graphIM, false); //delete the graph in incidence matrix
 }
 
 void kruskalExperiment(GraphAL **graphAL, GraphIM **graphIM){
@@ -216,33 +216,33 @@ void kruskalExperiment(GraphAL **graphAL, GraphIM **graphIM){
     do{
         cout<<" Enter the number of vertices: ";
         cin>>numberOfVer;
-    }while(numberOfVer<0 || numberOfVer>1000);
+    }while(numberOfVer<0 || numberOfVer>1000); //ask for the input again if the value is not in the expected range
 
     do{
         cout<<" Enter the density [%]: ";
         cin>>density;
-    }while(density<0 || density>100);
+    }while(density<0 || density>100); //ask for the input again if the value is not in the expected range
 
     do{
         cout<<" Enter the number of measurements: ";
         cin>>numberOfMeasurements;
-    }while(numberOfMeasurements<0 || numberOfMeasurements>500);
+    }while(numberOfMeasurements<0 || numberOfMeasurements>500); //ask for the input again if the value is not in the expected range
 
     timeAL = 0;
     timeIM = 0;
     for(int i = 0; i<numberOfMeasurements; i++){
-        generateGraph(graphAL, graphIM, numberOfVer, density, false, false);
-        Timer timerAL;
-        kruskalAL(*graphAL, false);
-        timeAL += timerAL.getTime().count() * unitFactor;
+        generateGraph(graphAL, graphIM, numberOfVer, density, false, false); //generate random graph for each measurement
+        Timer timerAL; //set the timer for adjacency list
+        kruskalAL(*graphAL, false); //perform Kruskal's algorithm on the generated graph in adjacency list
+        timeAL += timerAL.getTime().count() * unitFactor; //stop the timer and count the time
 
-        Timer timerIM;
-        kruskalIM(*graphIM, false);
-        timeIM += timerIM.getTime().count() * unitFactor;
+        Timer timerIM; //set the timer for incidence matrix
+        kruskalIM(*graphIM, false); //perform Kruskal's algorithm on the generated graph in incidence matrix
+        timeIM += timerIM.getTime().count() * unitFactor; //stop the timer and count the time
     }
-    cout<<" Kruskal's algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl;
-    cout<<" Kruskal's algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<unit<<endl;
+    cout<<" Kruskal's algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl; //count the average time for kruskal in adjacency list
+    cout<<" Kruskal's algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<unit<<endl; //count the average time for kruskal in incidence matrix
 
-    deleteGraphAL(graphAL, false);
-    deleteGraphIM(graphIM, false);
+    deleteGraphAL(graphAL, false); //delete the graph in adjacency list
+    deleteGraphIM(graphIM, false); //delete the graph in incidence matrix
 }

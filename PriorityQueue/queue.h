@@ -2,33 +2,21 @@
 #define _QUEUE_H_
 
 struct Edge{
-    int vertexStart;
-    int vertexEnd;
-    int weight;
-
-    // Edge(){
-    //     this->vertexStart = 0;
-    //     this->vertexEnd = 0;
-    //     this->weight = 0;
-    // }
-
-    // Edge(int vertexStart, int vertexEnd, int weight){
-    //     this->vertexStart = vertexStart;
-    //     this->vertexEnd = vertexEnd;
-    //     this->weight = weight;
-    // }
+    int vertexStart; //starting vertex of the edge
+    int vertexEnd; //ending vertex of the edge
+    int weight; //weight of the edge
 };
 
 class Queue{
 private:
-    Edge *heap;
+    Edge *heap; //heap with the edges
     int heapPosition;
 public:
-    Queue(int);
-    ~Queue();
-    Edge front();
-    void push(Edge);
-    void pop();
+    Queue(int); //constructor
+    ~Queue(); // destructor
+    Edge front(); //get the edge from the heap's root
+    void push(Edge); //add new edge to the heap
+    void pop(); //remove the root from the heap
 };
 
 #endif

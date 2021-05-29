@@ -4,8 +4,7 @@
 #include "../IncidenceMatrixGraph/graphIM.cpp"
 using namespace std;
 
-int minimumVertex(int *dist, bool *visited, int n)
-{
+int minimumVertex(int *dist, bool *visited, int n){ //return the minimum vertex in the graph
 	int min = -1;
 
 	for(int i = 0; i < n; i++)
@@ -18,19 +17,19 @@ int minimumVertex(int *dist, bool *visited, int n)
 	return min;
 }
 
-void dijkstraAL(GraphAL *graph, int src, bool printResult) // adjacency list
+void dijkstraAL(GraphAL *graph, int src, bool printResult) //adjacency list
 {
-    int vertexes = graph->getNumOfVertexes(); // number of vertexes
+    int vertexes = graph->getNumOfVertexes(); //number of vertexes
     if(vertexes == 0){
         cout<<" Graph is empty!"<<endl;
         return;
     }
-    int edges = graph->getNumOfEdges(); // number of edges
-	int *distance = new int[vertexes]; // integer array to calculate minimum distance for each vertex
-	bool *visited = new bool[vertexes]; // boolean array to mark visted/unvisted for each vertex
-    int *previous = new int[vertexes]; // integer array of previous vertexes
+    int edges = graph->getNumOfEdges(); //number of edges
+	int *distance = new int[vertexes]; //integer array to calculate minimum distance for each vertex
+	bool *visited = new bool[vertexes]; //boolean array to mark visted/unvisted for each vertex
+    int *previous = new int[vertexes]; //integer array of previous vertexes
 
-	// set the vertexes with infinity distance and mark them unvisited
+	//set the vertexes with infinity distance and mark them unvisited
 	for(int i = 0; i < vertexes; i++)
 	{
 		distance[i] = INT_MAX;
@@ -38,16 +37,16 @@ void dijkstraAL(GraphAL *graph, int src, bool printResult) // adjacency list
         previous[i] = -1;
 	}
 
-	distance[src] = 0;   // source vertex distance is set to zero
+	distance[src] = 0;   //source vertex distance is set to zero
 
 	for(int i = 0; i < vertexes; i++)
 	{
-		int min = minimumVertex(distance,visited, vertexes); // find minimum vertex
-		visited[min] = true; // min with minimum distance included in visited
+		int min = minimumVertex(distance,visited, vertexes); //find minimum vertex
+		visited[min] = true; //min with minimum distance included in visited
 
 		for(Node *ver = graph->getList(min); ver; ver = ver->next)
 		{
-			// updating the minimum distance for the particular vertex
+			//updating the minimum distance for the particular vertex
 			if(!visited[ver->vertex] && (distance[ver->vertex] > distance[min] + ver->edge)){
                 distance[ver->vertex] = distance[min] + ver->edge;
                 previous[ver->vertex] = min;
@@ -70,19 +69,19 @@ void dijkstraAL(GraphAL *graph, int src, bool printResult) // adjacency list
     delete [] previous;
 }
 
-void dijkstraIM(GraphIM *graph, int src, bool printResult) // incidence matrix
+void dijkstraIM(GraphIM *graph, int src, bool printResult) //incidence matrix
 {
-    int vertexes = graph->getNumOfVertexes(); // number of vertexes
+    int vertexes = graph->getNumOfVertexes(); //number of vertexes
     if(vertexes == 0){
         cout<<" Graph is empty!"<<endl;
         return;
     }
-    int edges = graph->getNumOfEdges(); // number of edges
-	int *distance = new int[vertexes]; // integer array to calculate minimum distance for each vertex
-	bool *visited = new bool[vertexes]; // boolean array to mark visted/unvisted for each vertex
-    int *previous = new int[vertexes]; // integer array of previous vertexes
+    int edges = graph->getNumOfEdges(); //number of edges
+	int *distance = new int[vertexes]; //integer array to calculate minimum distance for each vertex
+	bool *visited = new bool[vertexes]; //boolean array to mark visted/unvisted for each vertex
+    int *previous = new int[vertexes]; //integer array of previous vertexes
 
-	// set the vertexes with infinity distance and mark them unvisited
+	//set the vertexes with infinity distance and mark them unvisited
 	for(int i = 0; i < vertexes; i++)
 	{
 		distance[i] = INT_MAX;
@@ -90,15 +89,15 @@ void dijkstraIM(GraphIM *graph, int src, bool printResult) // incidence matrix
         previous[i] = -1;
 	}
 
-	distance[src] = 0;   // source vertex distance is set to zero
+	distance[src] = 0;   //source vertex distance is set to zero
 	for(int i = 0; i < vertexes; i++)
 	{
-		int min = minimumVertex(distance,visited, vertexes); // find minimum vertex
-		visited[min] = true; // min with minimum distance included in visited
+		int min = minimumVertex(distance,visited, vertexes); //find minimum vertex
+		visited[min] = true; //min with minimum distance included in visited
 
 		for(int j = 0; j < edges; j++)
 		{
-			// updating the minimum distance for the particular vertex
+			//updating the minimum distance for the particular vertex
 			if(graph->findElement(min, j) > 0 && !visited[graph->getEndingVertexOfEdge(j)] && distance[min] != INT_MAX){
                 int dist = distance[min] + graph->findElement(min, j);
                 if(dist < distance[graph->getEndingVertexOfEdge(j)]){
