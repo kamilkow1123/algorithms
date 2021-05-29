@@ -4,8 +4,8 @@
 #include "../Kruskal/kruskal.cpp"
 #include "../Timer/timer.cpp"
 
-float unitFactor = 1000000000.0f; //nanoseconds
-string unit = "ns";
+float unitFactor = 1000000.0f; //microseconds
+string unit = " microseconds";
 
 void deleteGraphAL(GraphAL **graphAL, bool shouldPrint){ //delete the graph in the adjacency list
     if((*graphAL)->getNumOfVertexes() == 0){ //if the graph is empty, print that and return
@@ -123,8 +123,8 @@ void dijkstraExperiment(GraphAL **graphAL, GraphIM **graphIM){
         dijkstraIM(*graphIM, 0, false); //perform Dijkstra's algorithm on the generated graph in incidence matrix
         timeIM += timerIM.getTime().count() * unitFactor; //stop the timer and count the time
     }
-    cout<<" Dijkstra's algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl; //count the average time for dijkstra in adjacency list
-    cout<<" Dijkstra's algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<unit<<endl; //count the average time for dijkstra in incidence matrix
+    cout<<fixed<<setprecision(0)<<" Dijkstra's algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl; //count the average time for dijkstra in adjacency list
+    cout<<fixed<<setprecision(0)<<" Dijkstra's algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<unit<<endl; //count the average time for dijkstra in incidence matrix
 
     deleteGraphAL(graphAL, false); //delete the graph in adjacency list
     deleteGraphIM(graphIM, false); //delete the graph in incidence matrix
@@ -162,8 +162,8 @@ void bellmanFordExperiment(GraphAL **graphAL, GraphIM **graphIM){
         bellmanFordIM(*graphIM, 0, false); //perform Bellman-Ford algorithm on the generated graph in incidence matrix
         timeIM += timerIM.getTime().count() * unitFactor; //stop the timer and count the time
     }
-    cout<<" Bellman-Ford algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl; //count the average time for bellman-ford in adjacency list
-    cout<<" Bellman-Ford algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<unit<<endl; //count the average time for bellman-ford in incidence matrix
+    cout<<fixed<<setprecision(0)<<" Bellman-Ford algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl; //count the average time for bellman-ford in adjacency list
+    cout<<fixed<<setprecision(0)<<" Bellman-Ford algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<unit<<endl; //count the average time for bellman-ford in incidence matrix
 
     deleteGraphAL(graphAL, false); //delete the graph in adjacency list
     deleteGraphIM(graphIM, false); //delete the graph in incidence matrix
@@ -201,8 +201,8 @@ void primExperiment(GraphAL **graphAL, GraphIM **graphIM){
         primIM(*graphIM, 0, false); //perform Prim's algorithm on the generated graph in incidence matrix
         timeIM += timerIM.getTime().count() * unitFactor; //stop the timer and count the time
     }
-    cout<<" Prim's algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl; //count the average time for prim in adjacency list
-    cout<<" Prim's algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<unit<<endl; //count the average time for prim in incidence matrix
+    cout<<fixed<<setprecision(0)<<" Prim's algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl; //count the average time for prim in adjacency list
+    cout<<fixed<<setprecision(0)<<" Prim's algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<unit<<endl; //count the average time for prim in incidence matrix
 
     deleteGraphAL(graphAL, false); //delete the graph in adjacency list
     deleteGraphIM(graphIM, false); //delete the graph in incidence matrix
@@ -240,8 +240,8 @@ void kruskalExperiment(GraphAL **graphAL, GraphIM **graphIM){
         kruskalIM(*graphIM, false); //perform Kruskal's algorithm on the generated graph in incidence matrix
         timeIM += timerIM.getTime().count() * unitFactor; //stop the timer and count the time
     }
-    cout<<" Kruskal's algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl; //count the average time for kruskal in adjacency list
-    cout<<" Kruskal's algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<unit<<endl; //count the average time for kruskal in incidence matrix
+    cout<<fixed<<setprecision(0)<<" Kruskal's algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl; //count the average time for kruskal in adjacency list
+    cout<<fixed<<setprecision(0)<<" Kruskal's algorithm for incidence matrix took on average: "<<timeIM/numberOfMeasurements<<unit<<endl; //count the average time for kruskal in incidence matrix
 
     deleteGraphAL(graphAL, false); //delete the graph in adjacency list
     deleteGraphIM(graphIM, false); //delete the graph in incidence matrix
