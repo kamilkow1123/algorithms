@@ -109,7 +109,7 @@ void dijkstraExperiment(GraphAL **graphAL, GraphIM **graphIM){
     do{
         cout<<" Enter the number of measurements: ";
         cin>>numberOfMeasurements;
-    }while(numberOfMeasurements<0 || numberOfMeasurements>500); //ask for the input again if the value is not in the expected range
+    }while(numberOfMeasurements<0 || numberOfMeasurements>5000); //ask for the input again if the value is not in the expected range
 
     timeAL = 0;
     timeIM = 0;
@@ -148,7 +148,7 @@ void bellmanFordExperiment(GraphAL **graphAL, GraphIM **graphIM){
     do{
         cout<<" Enter the number of measurements: ";
         cin>>numberOfMeasurements;
-    }while(numberOfMeasurements<0 || numberOfMeasurements>500); //ask for the input again if the value is not in the expected range
+    }while(numberOfMeasurements<0 || numberOfMeasurements>5000); //ask for the input again if the value is not in the expected range
 
     timeAL = 0;
     timeIM = 0;
@@ -187,7 +187,7 @@ void primExperiment(GraphAL **graphAL, GraphIM **graphIM){
     do{
         cout<<" Enter the number of measurements: ";
         cin>>numberOfMeasurements;
-    }while(numberOfMeasurements<0 || numberOfMeasurements>500); //ask for the input again if the value is not in the expected range
+    }while(numberOfMeasurements<0 || numberOfMeasurements>5000); //ask for the input again if the value is not in the expected range
 
     timeAL = 0;
     timeIM = 0;
@@ -226,7 +226,7 @@ void kruskalExperiment(GraphAL **graphAL, GraphIM **graphIM){
     do{
         cout<<" Enter the number of measurements: ";
         cin>>numberOfMeasurements;
-    }while(numberOfMeasurements<0 || numberOfMeasurements>500); //ask for the input again if the value is not in the expected range
+    }while(numberOfMeasurements<0 || numberOfMeasurements>5000); //ask for the input again if the value is not in the expected range
 
     timeAL = 0;
     timeIM = 0;
