@@ -4,11 +4,11 @@
 #include "../PriorityQueue/queue.cpp"
 using namespace std;
 
-void primAL(GraphAL *graph, int src, bool printResult){ //adjacency list
+GraphAL* primAL(GraphAL *graph, int src){ //adjacency list
     int vertexes = graph->getNumOfVertexes(); //number of vertexes
     if(vertexes == 0){ //if graph is empty, print that and return
         cout<<" Graph is empty!"<<endl;
-        return;
+        return nullptr;
     }
     int edges = graph->getNumOfEdges(); //number of edges
 	bool *visited = new bool[vertexes]; //boolean array to mark visted/unvisted for each vertex
@@ -47,20 +47,17 @@ void primAL(GraphAL *graph, int src, bool printResult){ //adjacency list
         v = e.vertexEnd;
     }
 
-    if(printResult){
-        cout<<endl<<" MST from Prim's algorithm in adjacency list:"<<endl;
-        mst->printGraph();
-    }
-
     delete q;
     delete [] visited;
+
+    return mst;
 }
 
-void primIM(GraphIM *graph, int src, bool printResult){
+GraphIM* primIM(GraphIM *graph, int src){
     int vertexes = graph->getNumOfVertexes(); //number of vertexes
     if(vertexes == 0){ //if graph is empty, print that and return
         cout<<" Graph is empty!"<<endl;
-        return;
+        return nullptr;
     }
     int edges = graph->getNumOfEdges(); //number of edges
 	bool *visited = new bool[vertexes]; //boolean array to mark visted/unvisted for each vertex
@@ -99,11 +96,8 @@ void primIM(GraphIM *graph, int src, bool printResult){
         v = e.vertexEnd;
     }
 
-    if(printResult){
-        cout<<endl<<" MST from Prim's algorithm in incidence matrix:"<<endl;
-        mst->printGraph();
-    }
-
     delete q;
     delete [] visited;
+
+    return mst;
 }

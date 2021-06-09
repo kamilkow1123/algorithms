@@ -42,6 +42,8 @@ void testMenu(){
         cout<<" Enter your choice: ";
         int choice, direction, src, vertexes;
         float density;
+        GraphAL *mstAL;
+        GraphIM *mstIM;
         cin>>choice;
 
         switch(choice){
@@ -105,16 +107,24 @@ void testMenu(){
                     cout<<" Graph is empty!"<<endl;
                     break;
                 }
-                primAL(graphAL, src, true);
-                primIM(graphIM, src, true);
+                mstAL = primAL(graphAL, src);
+                mstIM = primIM(graphIM, src);
+                cout<<endl<<" MST from Prim's algorithm in adjacency list:"<<endl;
+                mstAL->printGraph();
+                cout<<endl<<" MST from Prim's algorithm in incidence matrix:"<<endl;
+                mstIM->printGraph();
                 break;
             case 7:
                 if(graphAL->getNumOfVertexes() == 0){
                     cout<<" Graph is empty!"<<endl;
                     break;
                 }
-                kruskalAL(graphAL, true);
-                kruskalIM(graphIM, true);
+                mstAL = kruskalAL(graphAL);
+                mstIM = kruskalIM(graphIM);
+                cout<<endl<<" MST from Kruskal's algorithm in adjacency list:"<<endl;
+                mstAL->printGraph();
+                cout<<endl<<" MST from Kruskal's algorithm in incidence matrix:"<<endl;
+                mstIM->printGraph();
                 break;
             case 8:
                 if(graphAL->getNumOfVertexes() == 0){

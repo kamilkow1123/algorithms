@@ -194,11 +194,11 @@ void primExperiment(GraphAL **graphAL, GraphIM **graphIM){
     for(int i = 0; i<numberOfMeasurements; i++){
         generateGraph(graphAL, graphIM, numberOfVer, density, false, false); //generate random graph for each measurement
         Timer timerAL; //set the timer for adjacency list
-        primAL(*graphAL, 0, false); //perform Prim's algorithm on the generated graph in adjacency list
+        primAL(*graphAL, 0); //perform Prim's algorithm on the generated graph in adjacency list
         timeAL += timerAL.getTime().count() * unitFactor; //stop the timer and count the time
 
         Timer timerIM; //set the timer for incidence matrix
-        primIM(*graphIM, 0, false); //perform Prim's algorithm on the generated graph in incidence matrix
+        primIM(*graphIM, 0); //perform Prim's algorithm on the generated graph in incidence matrix
         timeIM += timerIM.getTime().count() * unitFactor; //stop the timer and count the time
     }
     cout<<fixed<<setprecision(0)<<" Prim's algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl; //count the average time for prim in adjacency list
@@ -233,11 +233,11 @@ void kruskalExperiment(GraphAL **graphAL, GraphIM **graphIM){
     for(int i = 0; i<numberOfMeasurements; i++){
         generateGraph(graphAL, graphIM, numberOfVer, density, false, false); //generate random graph for each measurement
         Timer timerAL; //set the timer for adjacency list
-        kruskalAL(*graphAL, false); //perform Kruskal's algorithm on the generated graph in adjacency list
+        kruskalAL(*graphAL); //perform Kruskal's algorithm on the generated graph in adjacency list
         timeAL += timerAL.getTime().count() * unitFactor; //stop the timer and count the time
 
         Timer timerIM; //set the timer for incidence matrix
-        kruskalIM(*graphIM, false); //perform Kruskal's algorithm on the generated graph in incidence matrix
+        kruskalIM(*graphIM); //perform Kruskal's algorithm on the generated graph in incidence matrix
         timeIM += timerIM.getTime().count() * unitFactor; //stop the timer and count the time
     }
     cout<<fixed<<setprecision(0)<<" Kruskal's algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl; //count the average time for kruskal in adjacency list

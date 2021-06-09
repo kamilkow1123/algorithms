@@ -4,11 +4,11 @@
 #include "../UnionFind/unionFind.cpp"
 using namespace std;
 
-void kruskalAL(GraphAL *graph, bool printResult){
+GraphAL* kruskalAL(GraphAL *graph){
     int vertexes = graph->getNumOfVertexes(); //number of vertexes
     if(vertexes == 0){ //if the graph is empty, print that and return
         cout<<" Graph is empty!"<<endl;
-        return;
+        return nullptr;
     }
     int edges = graph->getNumOfEdges(); //number of edges
     Edge edge;
@@ -41,19 +41,16 @@ void kruskalAL(GraphAL *graph, bool printResult){
         set.unionSets(edge); //union sets connected by the edge
     }
 
-    if(printResult){
-        cout<<endl<<" MST from Kruskal's algorithm in adjacency list:"<<endl;
-        mst->printGraph();
-    }
-
     delete queue;
+
+    return mst;
 }
 
-void kruskalIM(GraphIM *graph, bool printResult){
+GraphIM* kruskalIM(GraphIM *graph){
     int vertexes = graph->getNumOfVertexes(); //number of vertexes
     if(vertexes == 0){ //if the graph is empty, print that and return
         cout<<" Graph is empty!"<<endl;
-        return;
+        return nullptr;
     }
     int edges = graph->getNumOfEdges(); //number of edges
     Edge edge;
@@ -88,10 +85,7 @@ void kruskalIM(GraphIM *graph, bool printResult){
         set.unionSets(edge); //union sets connected by the edge
     }
 
-    if(printResult){
-        cout<<endl<<" MST from Kruskal's algorithm in incidence matrix:"<<endl;
-        mst->printGraph();
-    }
-
     delete queue;
+
+    return mst;
 }
