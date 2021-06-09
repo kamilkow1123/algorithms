@@ -42,7 +42,7 @@ void bellmanFordAL(GraphAL *graph, int src, bool printResult){ //adjacency list
     //Detect negative cycle
     for(int j = 0; j < vertexes; j++){
         for(Node *ver = graph->getList(j); ver; ver = ver->next){
-            if((distance[ver->vertex] > distance[j] + ver->edge)){
+            if((distance[j] != INT_MAX) && (distance[ver->vertex] > distance[j] + ver->edge)){
                 cout<<" Negative cycle detected!"<<endl;
                 return;
             }
@@ -54,7 +54,8 @@ void bellmanFordAL(GraphAL *graph, int src, bool printResult){ //adjacency list
         cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
         for(int i = 0; i < vertexes; i++) //printing
         {
-            cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
+            if(distance[i] > INT_MAX/2 || distance[i] < -INT_MAX/2) cout<<" "<<i<<"\t\t"<<"no path"<<"\t\t"<<"no path"<<endl;
+            else cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
         }
         cout<<endl;
     }
@@ -110,7 +111,8 @@ void bellmanFordIM(GraphIM *graph, int src, bool printResult){
         cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
         for(int i = 0; i < vertexes; i++) //printing
         {
-            cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
+            if(distance[i] > INT_MAX/2 || distance[i] < -INT_MAX/2) cout<<" "<<i<<"\t\t"<<"no path"<<"\t\t"<<"no path"<<endl;
+            else cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
         }
         cout<<endl;
     }

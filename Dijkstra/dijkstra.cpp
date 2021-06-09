@@ -59,7 +59,8 @@ void dijkstraAL(GraphAL *graph, int src, bool printResult) //adjacency list
         cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
         for(int i = 0; i < vertexes; i++) //printing
         {
-            cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
+            if(distance[i] > INT_MAX/2 || distance[i] < -INT_MAX/2) cout<<" "<<i<<"\t\t"<<"no path"<<"\t\t"<<"no path"<<endl;
+            else cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
         }
         cout<<endl;
     }
@@ -113,7 +114,8 @@ void dijkstraIM(GraphIM *graph, int src, bool printResult) //incidence matrix
         cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
         for(int i = 0; i < vertexes; i++) //printing
         {
-            cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
+            if(distance[i] > INT_MAX/2 || distance[i] < -INT_MAX/2) cout<<" "<<i<<"\t\t"<<"no path"<<"\t\t"<<"no path"<<endl;
+            else cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
         }
         cout<<endl;
     }
