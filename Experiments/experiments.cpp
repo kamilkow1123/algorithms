@@ -116,11 +116,11 @@ void dijkstraExperiment(GraphAL **graphAL, GraphIM **graphIM){
     for(int i = 0; i<numberOfMeasurements; i++){
         generateGraph(graphAL, graphIM, numberOfVer, density, true, false); //generate random graph for each measurement
         Timer timerAL; //set the timer for adjacency list
-        dijkstraAL(*graphAL, 0, false); //perform Dijkstra's algorithm on the generated graph in adjacency list
+        dijkstraAL(*graphAL, 0); //perform Dijkstra's algorithm on the generated graph in adjacency list
         timeAL += timerAL.getTime().count() * unitFactor; //stop the timer and count the time
 
         Timer timerIM; //set the timer for incidence matrix
-        dijkstraIM(*graphIM, 0, false); //perform Dijkstra's algorithm on the generated graph in incidence matrix
+        dijkstraIM(*graphIM, 0); //perform Dijkstra's algorithm on the generated graph in incidence matrix
         timeIM += timerIM.getTime().count() * unitFactor; //stop the timer and count the time
     }
     cout<<fixed<<setprecision(0)<<" Dijkstra's algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl; //count the average time for dijkstra in adjacency list

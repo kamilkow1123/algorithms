@@ -44,6 +44,7 @@ void testMenu(){
         float density;
         GraphAL *mstAL;
         GraphIM *mstIM;
+        int **results;
         cin>>choice;
 
         switch(choice){
@@ -89,8 +90,21 @@ void testMenu(){
                     cout<<" Graph is empty!"<<endl;
                     break;
                 }
-                dijkstraAL(graphAL, src, true);
-                dijkstraIM(graphIM, src, true);
+                results = dijkstraAL(graphAL, src);
+                cout<<endl<<" Results of the Dijkstra algorithm for adjacency list: "<<endl;
+                cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
+                for(int i=0; i < graphAL->getNumOfVertexes(); i++){
+                    if(results[i][0] == -2) cout<<" "<<i<<"\t\t"<<"no path"<<"\t\t"<<"no path"<<endl;
+                    else cout<<" "<<i<<"\t\t"<<results[i][0]<<"\t\t"<<results[i][1]<<endl;
+                }
+
+                results = dijkstraIM(graphIM, src);
+                cout<<endl<<" Results of the Dijkstra algorithm for incidence matrix: "<<endl;
+                cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
+                for(int i=0; i < graphAL->getNumOfVertexes(); i++){
+                    if(results[i][0] == -2) cout<<" "<<i<<"\t\t"<<"no path"<<"\t\t"<<"no path"<<endl;
+                    else cout<<" "<<i<<"\t\t"<<results[i][0]<<"\t\t"<<results[i][1]<<endl;
+                }
                 break;
             case 5:
                 src = askForStartingVertex();

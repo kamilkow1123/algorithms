@@ -17,17 +17,18 @@ int minimumVertex(int *dist, bool *visited, int n){ //return the minimum vertex 
 	return min;
 }
 
-void dijkstraAL(GraphAL *graph, int src, bool printResult) //adjacency list
+int **dijkstraAL(GraphAL *graph, int src) //adjacency list
 {
     int vertexes = graph->getNumOfVertexes(); //number of vertexes
     if(vertexes == 0){
         cout<<" Graph is empty!"<<endl;
-        return;
+        return nullptr;
     }
     int edges = graph->getNumOfEdges(); //number of edges
 	int *distance = new int[vertexes]; //integer array to calculate minimum distance for each vertex
 	bool *visited = new bool[vertexes]; //boolean array to mark visted/unvisted for each vertex
     int *previous = new int[vertexes]; //integer array of previous vertexes
+    int **results = new int*[vertexes]; //array for results
 
 	//set the vertexes with infinity distance and mark them unvisited
 	for(int i = 0; i < vertexes; i++)
@@ -35,6 +36,7 @@ void dijkstraAL(GraphAL *graph, int src, bool printResult) //adjacency list
 		distance[i] = INT_MAX;
 		visited[i] = false;
         previous[i] = -1;
+        results[i] = new int[2];
 	}
 
 	distance[src] = 0;   //source vertex distance is set to zero
@@ -54,33 +56,37 @@ void dijkstraAL(GraphAL *graph, int src, bool printResult) //adjacency list
 		}
 	}
 
-    if(printResult){
-        cout<<endl<<" Results of the Dijkstra algorithm for adjacency list: "<<endl;
-        cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
-        for(int i = 0; i < vertexes; i++) //printing
-        {
-            if(distance[i] > INT_MAX/2 || distance[i] < -INT_MAX/2) cout<<" "<<i<<"\t\t"<<"no path"<<"\t\t"<<"no path"<<endl;
-            else cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
+    for(int i = 0; i < vertexes; i++) //filling the results
+    {
+        if(distance[i] > INT_MAX/2 || distance[i] < -INT_MAX/2){
+            results[i][0] = -2; //no path
+            results[i][1] = -2; //no path
         }
-        cout<<endl;
+        else{
+            results[i][0] = distance[i];
+            results[i][1] = previous[i];
+        }
     }
 
     delete [] visited;
     delete [] distance;
     delete [] previous;
+
+    return results;
 }
 
-void dijkstraIM(GraphIM *graph, int src, bool printResult) //incidence matrix
+int **dijkstraIM(GraphIM *graph, int src) //incidence matrix
 {
     int vertexes = graph->getNumOfVertexes(); //number of vertexes
     if(vertexes == 0){
         cout<<" Graph is empty!"<<endl;
-        return;
+        return nullptr;
     }
     int edges = graph->getNumOfEdges(); //number of edges
 	int *distance = new int[vertexes]; //integer array to calculate minimum distance for each vertex
 	bool *visited = new bool[vertexes]; //boolean array to mark visted/unvisted for each vertex
     int *previous = new int[vertexes]; //integer array of previous vertexes
+    int **results = new int*[vertexes]; //array for results
 
 	//set the vertexes with infinity distance and mark them unvisited
 	for(int i = 0; i < vertexes; i++)
@@ -88,6 +94,7 @@ void dijkstraIM(GraphIM *graph, int src, bool printResult) //incidence matrix
 		distance[i] = INT_MAX;
 		visited[i] = false;
         previous[i] = -1;
+        results[i] = new int[2];
 	}
 
 	distance[src] = 0;   //source vertex distance is set to zero
@@ -109,18 +116,21 @@ void dijkstraIM(GraphIM *graph, int src, bool printResult) //incidence matrix
 		}
 	}
 
-    if(printResult){
-        cout<<endl<<" Results of the Dijkstra algorithm for incidence matrix: "<<endl;
-        cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
-        for(int i = 0; i < vertexes; i++) //printing
-        {
-            if(distance[i] > INT_MAX/2 || distance[i] < -INT_MAX/2) cout<<" "<<i<<"\t\t"<<"no path"<<"\t\t"<<"no path"<<endl;
-            else cout<<" "<<i<<"\t\t"<<distance[i]<<"\t\t"<<previous[i]<<endl;
+    for(int i = 0; i < vertexes; i++) //filling the results
+    {
+        if(distance[i] > INT_MAX/2 || distance[i] < -INT_MAX/2){
+            results[i][0] = -2; //no path
+            results[i][1] = -2; //no path
         }
-        cout<<endl;
+        else{
+            results[i][0] = distance[i];
+            results[i][1] = previous[i];
+        }
     }
 
     delete [] visited;
     delete [] distance;
     delete [] previous;
+
+    return results;
 }
