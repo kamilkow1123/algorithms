@@ -155,11 +155,11 @@ void bellmanFordExperiment(GraphAL **graphAL, GraphIM **graphIM){
     for(int i = 0; i<numberOfMeasurements; i++){
         generateGraph(graphAL, graphIM, numberOfVer, density, true, false); //generate random graph for each measurement
         Timer timerAL; //set the timer for adjacency list
-        bellmanFordAL(*graphAL, 0, false); //perform Bellman-Ford algorithm on the generated graph in adjacency list
+        bellmanFordAL(*graphAL, 0); //perform Bellman-Ford algorithm on the generated graph in adjacency list
         timeAL += timerAL.getTime().count() * unitFactor; //stop the timer and count the time
 
         Timer timerIM; //set the timer for incidence matrix
-        bellmanFordIM(*graphIM, 0, false); //perform Bellman-Ford algorithm on the generated graph in incidence matrix
+        bellmanFordIM(*graphIM, 0); //perform Bellman-Ford algorithm on the generated graph in incidence matrix
         timeIM += timerIM.getTime().count() * unitFactor; //stop the timer and count the time
     }
     cout<<fixed<<setprecision(0)<<" Bellman-Ford algorithm for adjacency list took on average: "<<timeAL/numberOfMeasurements<<unit<<endl; //count the average time for bellman-ford in adjacency list
