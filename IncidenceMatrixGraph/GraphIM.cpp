@@ -39,7 +39,7 @@ void GraphIM::printGraph(){
         }
         cout<<endl;
     }
-    cout<<endl<<" Graph weight: "<<weight<<endl<<endl<<endl;
+    cout<<endl<<" Graph weight: "<<weight<<endl<<endl;
 }
 
 void GraphIM::setNumOfEdges(int num){ //set the number of edges

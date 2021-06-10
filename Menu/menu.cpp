@@ -81,15 +81,26 @@ void testMenu(){
                 generateGraph(&graphAL, &graphIM, vertexes, density, direction, true);
                 break;
             case 3:
+                if(graphAL->getNumOfVertexes() == 0){
+                    cout<<" Graph is empty!"<<endl;
+                    break;
+                }
+                cout<<endl;
                 graphAL->printGraph();
                 graphIM->printGraph();
                 break;
             case 4:
+                if(direction == 0){
+                    cout<<" Dijkstra's algorithm should be executed on directed graph!"<<endl;
+                    break;
+                }
+
                 src = askForStartingVertex();
                 if(src == -1){
                     cout<<" Graph is empty!"<<endl;
                     break;
                 }
+
                 results = dijkstraAL(graphAL, src);
                 cout<<endl<<" Results of the Dijkstra algorithm for adjacency list: "<<endl;
                 cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
@@ -108,11 +119,17 @@ void testMenu(){
                 cout<<endl;
                 break;
             case 5:
+                if(direction == 0){
+                    cout<<" Bellman-Ford algorithm should be executed on directed graph!"<<endl;
+                    break;
+                }
+
                 src = askForStartingVertex();
                 if(src == -1){
                     cout<<" Graph is empty!"<<endl;
                     break;
                 }
+
                 results = bellmanFordAL(graphAL, src);
                 cout<<endl<<" Results of the Bellman-Ford algorithm for adjacency list: "<<endl;
                 cout<<" Vertex\tDistance from source\tPrevious vertex"<<endl;
@@ -131,11 +148,17 @@ void testMenu(){
                 cout<<endl;
                 break;
             case 6:
+                if(direction == 1){
+                    cout<<" Prim's algorithm should be executed on undirected graph!"<<endl;
+                    break;
+                }
+
                 src = askForStartingVertex();
                 if(src == -1){
                     cout<<" Graph is empty!"<<endl;
                     break;
                 }
+
                 mstAL = primAL(graphAL, src);
                 mstIM = primIM(graphIM, src);
                 cout<<endl<<" MST from Prim's algorithm in adjacency list:"<<endl;
@@ -144,10 +167,16 @@ void testMenu(){
                 mstIM->printGraph();
                 break;
             case 7:
+                if(direction == 1){
+                    cout<<" Kruskal's algorithm should be executed on undirected graph!"<<endl;
+                    break;
+                }
+
                 if(graphAL->getNumOfVertexes() == 0){
                     cout<<" Graph is empty!"<<endl;
                     break;
                 }
+
                 mstAL = kruskalAL(graphAL);
                 mstIM = kruskalIM(graphIM);
                 cout<<endl<<" MST from Kruskal's algorithm in adjacency list:"<<endl;
