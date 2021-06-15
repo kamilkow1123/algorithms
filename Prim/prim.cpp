@@ -22,7 +22,7 @@ GraphAL* primAL(GraphAL *graph, int src){ //adjacency list
 	}
 
     visited[src] = true; //source vertex is set to be visited
-    int v = 0;
+    int v = src;
     Edge e;
     Queue *q = new Queue(edges);
 
@@ -71,7 +71,7 @@ GraphIM* primIM(GraphIM *graph, int src){
 	}
 
     visited[src] = true; //source vertex is set to be visited
-    int v = 0;
+    int v = src;
     Edge e;
     Queue *q = new Queue(edges);
 
